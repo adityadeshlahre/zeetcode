@@ -2,19 +2,72 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
+  output   = "./generated/client"
 }
 
 datasource db {
-    provider = "sqlite"
-    url      = env("DATABASE_URL")
+  provider = "postgres"
+  url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model User {
+  id         String       @id @default(uuid())
+  username   String       @unique
+  name       String
+  profileImg String
+  email      String
+  password   String
+  token      String
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  submission Submission[]
 
-    @@index([name])
+  @@index([name])
+}
+
+model Admin {
+  id         String      @id @default(uuid())
+  username   String      @unique
+  name       String
+  profileImg String
+  email      String
+  password   String
+  token      String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  challenge  Challenge[]
+
+  @@index([name])
+}
+
+model Challenge {
+  id                  String       @id @default(cuid())
+  questionTitle       String
+  questionDescription String
+  questionHint        String
+  code                String
+  solution            String
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+  submission          Submission[]
+  adminId             String
+  Admin               Admin        @relation(fields: [adminId], references: [id])
+
+  @@index([adminId])
+}
+
+model Submission {
+  id          String    @id @default(cuid())
+  code        String
+  language    String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  userId      String
+  challengeId String
+  User        User      @relation(fields: [userId], references: [id])
+  Challenge   Challenge @relation(fields: [challengeId], references: [id])
+
+  @@index([userId])
+  @@index([challengeId])
 }
