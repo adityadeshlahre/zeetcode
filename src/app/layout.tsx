@@ -2,8 +2,9 @@ import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
-
+import Header from "../components/header";
 import { TRPCReactProvider } from "~/trpc/react";
+import Container from "~/components/container";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,9 +25,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-        <TRPCReactProvider cookies={cookies().toString()}>
-          {children}
-        </TRPCReactProvider>
+        <Container>
+          <Header />
+          <TRPCReactProvider cookies={cookies().toString()}>
+            {children}
+          </TRPCReactProvider>
+        </Container>
       </body>
     </html>
   );

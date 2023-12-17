@@ -2,12 +2,12 @@
 
 > :warning: **Under Development**
 
-> :memo: **Note** This clone is build with in very latest stack the <strong>T3 Stack</strong>.
+> :memo: **Note** This clone is build with in very latest fashion the <strong>T3 Stack</strong>.
 
 ## Few _MOTE_ planing to implement
 
-[ ] Redis (want to use this queue)
-[ ] Adding more....
+- [ ] Redis (want to use this queue)
+- [ ] Adding more....
 
 ## Create T3 App
 

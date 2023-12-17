@@ -7,10 +7,9 @@ const idSchema = z.object({ id: z.string() });
 const adminSchema = z.object({
   username: z.string().min(6).max(10),
   name: z.string(),
-  profileImg: z.string(),
+  profilePicture: z.string(),
   email: z.string().email(),
   password: z.string().min(6).max(20),
-  token: z.string(),
 });
 
 export const adminRoute = createTRPCRouter({

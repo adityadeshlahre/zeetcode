@@ -1,14 +1,13 @@
+"use client";
 import { NextRequest } from "next/server";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { api } from "~/trpc/server";
 
 export const UserPage = ({ req }: { req: NextRequest }) => {
-  const { query } = useRouter();
-  const id: string = query.id as string;
-
+  const userAgent = req.headers.get("user-agent");
   return (
     <div>
-      <h1>{id}</h1>
+      <h1>profile [id] </h1>
     </div>
   );
 };
