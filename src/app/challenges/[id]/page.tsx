@@ -1,5 +1,10 @@
+"use client";
+import { useRouter } from "next/router";
 import { NextRequest } from "next/server";
 
-export function challengesWithId(request: NextRequest) {
-  return <div>challenges loading</div>;
+export default function challengesWithId({ req }: { req: NextRequest }) {
+  const { query } = useRouter();
+  const id: string = query.id as string;
+
+  return <div>Challenges with ID: {id} loading</div>;
 }

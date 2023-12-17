@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
 
-export function challenges(request: NextRequest) {
+export default function profile(request: NextRequest) {
   return <div>challenges loading</div>;
 }
