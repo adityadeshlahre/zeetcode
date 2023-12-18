@@ -1,16 +1,5 @@
-import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-
-const idSchema = z.object({ id: z.string() });
-
-const challengeSchema = z.object({
-  questionTitle: z.string(),
-  questionDescription: z.string(),
-  questionHint: z.string(),
-  code: z.string(),
-  solution: z.string(),
-  adminId: z.string(),
-});
+import { idSchema, challengeSchema } from "../types";
 
 export const challengeRouter = createTRPCRouter({
   getAllChallenges: publicProcedure.query(({ ctx }) => {

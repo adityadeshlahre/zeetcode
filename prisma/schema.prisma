@@ -52,7 +52,7 @@ model Challenge {
   updatedAt           DateTime     @updatedAt
   submission          Submission[]
   adminId             String
-  Admin               Admin        @relation(fields: [adminId], references: [id])
+  Admin               Admin?        @relation(fields: [adminId], references: [id])
 
   @@index([adminId])
 }

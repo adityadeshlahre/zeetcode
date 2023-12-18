@@ -1,16 +1,5 @@
-import { z } from "zod";
-
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-
-const idSchema = z.object({ id: z.string() });
-
-const userSchema = z.object({
-  username: z.string().min(6).max(10),
-  name: z.string(),
-  profilePicture: z.string(),
-  email: z.string().email(),
-  password: z.string().min(6).max(20),
-});
+import { idSchema, userSchema } from "../types";
 
 export const userRoute = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
