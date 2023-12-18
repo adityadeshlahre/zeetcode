@@ -1,5 +1,5 @@
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-import { idSchema, userSchema } from "../types";
+import { idSchema, userLoginSchema, userSchema } from "../types";
 
 export const userRoute = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
@@ -9,6 +9,12 @@ export const userRoute = createTRPCRouter({
   getOne: publicProcedure.input(idSchema).query(({ input, ctx }) => {
     return ctx.db.user.findUnique({
       where: idSchema.parse(input),
+    });
+  }),
+
+  loginUser: publicProcedure.input(userLoginSchema).query(({ input, ctx }) => {
+    return ctx.db.user.findUnique({
+      where: userSchema.parse(input),
     });
   }),
 

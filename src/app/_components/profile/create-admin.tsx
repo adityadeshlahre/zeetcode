@@ -3,18 +3,18 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "~/trpc/react";
-import { TUserSchema } from "~/server/api/types";
+import { TAdminSchema } from "~/server/api/types";
 
-export default function UserRegister() {
+export default function AdminRegister() {
   const router = useRouter();
-  const [username, setUsername] = useState<TUserSchema["username"]>("");
-  const [name, setName] = useState<TUserSchema["name"]>("");
-  const [email, setEmail] = useState<TUserSchema["email"]>("");
-  const [password, setPassword] = useState<TUserSchema["password"]>("");
+  const [username, setUsername] = useState<TAdminSchema["username"]>("");
+  const [name, setName] = useState<TAdminSchema["name"]>("");
+  const [email, setEmail] = useState<TAdminSchema["email"]>("");
+  const [password, setPassword] = useState<TAdminSchema["password"]>("");
   const [profilePicture, setProfilePicture] =
-    useState<TUserSchema["profilePicture"]>("");
+    useState<TAdminSchema["profilePicture"]>("");
 
-  const createUser = api.user.createUser.useMutation({
+  const createAdmin = api.admin.createAdmin.useMutation({
     onSuccess: () => {
       router.refresh();
       setUsername("");
@@ -28,7 +28,7 @@ export default function UserRegister() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      createUser.mutate({
+      createAdmin.mutate({
         username,
         email,
         name,

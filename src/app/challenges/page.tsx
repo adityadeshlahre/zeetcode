@@ -1,11 +1,15 @@
-import { NextRequest } from "next/server";
-import { CreateChallenge } from "../_components/challenges/create-challenges";
+"use client";
 
-export default function challenges(request: NextRequest) {
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { api } from "~/trpc/react";
+import { AllChallenge } from "../_components/challenges/get-all-challenges";
+
+export default function Allhallenges() {
   return (
-    <div>
-      challenges loading
-      <CreateChallenge />
-    </div>
+    <>
+      <h1>All Challenges</h1>
+      <AllChallenge />
+    </>
   );
 }

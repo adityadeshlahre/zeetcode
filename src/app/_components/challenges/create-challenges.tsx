@@ -37,7 +37,7 @@ export function CreateChallenge() {
           questionDescription,
           questionHint,
           solution,
-          adminId: "asd",
+          adminId: "440dd03d-298e-4551-85b9-a3b1f9c16336",
         });
       }}
       className="flex flex-col gap-4"
