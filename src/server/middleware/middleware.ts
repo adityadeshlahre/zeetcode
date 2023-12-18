@@ -3,7 +3,12 @@ import type { NextRequest } from "next/server";
 import { serialize } from "cookie";
 import { sign } from "jsonwebtoken";
 
+const MAX_AGE = 60 * 60 * 1 * 2;
+const secret = process.env.JWT_SECRET || "";
+const cookie = process.env.COOKIE || "";
+
 export function middleware(request: NextRequest) {
+  console.log("fromInsideOfMiddleware");
   const path = request.nextUrl.pathname;
 
   const isPublicPath = path === "/login" || path === "/signup";
@@ -22,9 +27,8 @@ export const config = {
   matcher: ["/", "/login", "/register", "/profile", "/profile/*"],
 };
 
-const MAX_AGE = 60 * 60 * 1 * 2; // days;
-
 export async function POST(request: Request) {
+  console.log("fromInsideOfMiddleware2Post");
   const body = await request.json();
 
   const { username, password } = body;
@@ -39,10 +43,6 @@ export async function POST(request: Request) {
       },
     );
   }
-
-  // Always check this
-  const secret = process.env.JWT_SECRET || "";
-  const cookie = process.env.COOKIE || "";
 
   const token = sign(
     {

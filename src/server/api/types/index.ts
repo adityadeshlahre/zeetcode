@@ -24,6 +24,7 @@ export const challengeSchema = z.object({
   questionHint: z.string(),
   code: z.string(),
   solution: z.string(),
+  adminId: z.string(),
 });
 
 export const submissionSchema = z.object({
