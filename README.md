@@ -7,6 +7,7 @@
 ## Few _MOTE_ planing to implement
 
 - [ ] Redis (want to use this queue)
+- [ ] Docker File
 - [ ] Adding more....
 
 ## ToFix
