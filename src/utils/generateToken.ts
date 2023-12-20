@@ -1,16 +1,28 @@
-import { sign } from "jsonwebtoken";
+import { sign, verify } from "jsonwebtoken";
+import { GetUserId } from "./returnId";
 
-export const generateToken = async (id: string): Promise<string> => {
+const secret: string = process.env.JWT_SECRET || "";
+export const generateToken = async (email: string): Promise<string> => {
   try {
-    // Replace 'your-secret-key' with a strong secret key for signing the token
-    const secretKey = "your-secret-key";
+    const id = await GetUserId(email);
 
-    // Generate a token with the user ID
-    const token = sign({ userId: id }, secretKey, { expiresIn: "1h" });
+    const token = sign({ userId: id }, secret, { expiresIn: "1h" });
 
     return token;
   } catch (error) {
     console.error("Error generating token:", error);
     throw new Error("Error generating token");
   }
+};
+
+export const verifyToken = (token: string): Promise<{ userId: string }> => {
+  return new Promise((resolve, reject) => {
+    verify(token, secret, (err, decoded) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(decoded as { userId: string });
+      }
+    });
+  });
 };

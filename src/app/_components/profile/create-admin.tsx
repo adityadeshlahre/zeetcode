@@ -36,6 +36,7 @@ export default function AdminRegister() {
         name,
         profilePicture,
         password: hasspass,
+        token: "",
       });
       console.error("registratation fuckedup");
     } catch (error) {

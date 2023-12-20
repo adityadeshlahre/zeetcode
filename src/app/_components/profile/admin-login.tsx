@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { api } from "~/trpc/react";
+import { comparePassword } from "~/utils/generateHashPass";
+import { GetUserPass } from "~/utils/returnId";
 
 export default function AdminLogin() {
   const router = useRouter();
@@ -12,6 +14,7 @@ export default function AdminLogin() {
     { email, password },
     {
       onSuccess: () => {
+        //token setter function need to be called generateToken(email);
         router.push("/");
       },
       onError: (error) => {
@@ -23,8 +26,16 @@ export default function AdminLogin() {
     },
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const hashedpassword: string = await GetUserPass(email);
+    const passwordCorrect: boolean = await comparePassword(
+      password,
+      hashedpassword,
+    );
+    if (!passwordCorrect) {
+      return setError("Admin password is incorrect.");
+    }
     loginAdmin.refetch();
   };
 

@@ -12,6 +12,14 @@ export const userRoute = createTRPCRouter({
     });
   }),
 
+  getIdOne: publicProcedure
+    .input(userSchema.pick({ email: true }))
+    .query(({ input, ctx }) => {
+      return ctx.db.user.findUnique({
+        where: userSchema.parse(input),
+      });
+    }),
+
   loginUser: publicProcedure.input(userLoginSchema).query(({ input, ctx }) => {
     return ctx.db.user.findUnique({
       where: userSchema.parse(input),

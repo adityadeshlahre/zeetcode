@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { api } from "~/trpc/react";
 import { comparePassword } from "~/utils/generateHashPass";
+import { GetUserPass } from "~/utils/returnId";
+import { generateToken } from "~/utils/generateToken";
 
 export default function UserLogin() {
   const router = useRouter();
@@ -13,6 +15,7 @@ export default function UserLogin() {
     { email, password },
     {
       onSuccess: () => {
+        //token setter function need to be called generateToken(email);
         router.push("/");
       },
       onError: (error) => {
@@ -26,11 +29,14 @@ export default function UserLogin() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const hashedpassword: string = api.user.getOne.useQuery(id);
+    const hashedpassword: string = await GetUserPass(email);
     const passwordCorrect: boolean = await comparePassword(
       password,
       hashedpassword,
     );
+    if (!passwordCorrect) {
+      return setError("User password is incorrect.");
+    }
     loginUser.refetch();
   };
 
