@@ -12,6 +12,12 @@ export const adminRoute = createTRPCRouter({
     });
   }),
 
+  getIdAdmin: publicProcedure.input(adminSchema).query(({ input, ctx }) => {
+    return ctx.db.admin.findUnique({
+      where: idSchema.parse(input.email),
+    });
+  }),
+
   loginAdmin: publicProcedure
     .input(adminLoginSchema)
     .query(({ input, ctx }) => {

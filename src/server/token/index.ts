@@ -19,3 +19,10 @@ export async function TokenGenerator(
   // create a function which checks that user is admin or not which uses trpc call for database
   //
 }
+
+// const generateToken = (id: number) => {
+//   if (!JWT_SECRET) {
+//     throw new Error("JWT_SECRET is not defined");
+//   }
+//   return jwt.sign({ id }, JWT_SECRET);
+// };

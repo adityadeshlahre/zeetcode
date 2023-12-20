@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { api } from "~/trpc/react";
+import { comparePassword } from "~/utils/generateHashPass";
 
 export default function UserLogin() {
   const router = useRouter();
@@ -23,8 +24,13 @@ export default function UserLogin() {
     },
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const hashedpassword: string = api.user.getOne.useQuery(id);
+    const passwordCorrect: boolean = await comparePassword(
+      password,
+      hashedpassword,
+    );
     loginUser.refetch();
   };
 

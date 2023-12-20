@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "~/trpc/react";
 import { TUserSchema } from "~/server/api/types";
+import { generateHashedPassword } from "~/utils/generateHashPass";
 
 export default function UserRegister() {
   const router = useRouter();
@@ -27,13 +28,14 @@ export default function UserRegister() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const hasspass = await generateHashedPassword(password);
     try {
       createUser.mutate({
         username,
         email,
         name,
         profilePicture,
-        password,
+        password: hasspass,
       });
       console.error("registratation fuckedup");
     } catch (error) {
