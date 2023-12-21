@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 import { api } from "~/trpc/react";
 import { comparePassword } from "~/utils/generateHashPass";
 import { GetUserPass } from "~/utils/returnId";
-import { generateToken } from "~/utils/generateToken";
+import { generateToken, verifyToken } from "~/utils/generateToken";
+import { GetUserToken, SetUserToken } from "~/server/token";
 
 export default function UserLogin() {
   const router = useRouter();
@@ -14,8 +15,19 @@ export default function UserLogin() {
   const loginUser = api.user.loginUser.useQuery(
     { email, password },
     {
-      onSuccess: () => {
-        //token setter function need to be called generateToken(email);
+      onSuccess: async () => {
+        const token = await GetUserToken(email);
+        //types debug needed
+        if (!token) {
+          return console.log("error: token not found");
+        }
+        const verifiedToken = await verifyToken(token);
+
+        console.log(verifiedToken);
+        if (verifiedToken !== token) {
+          return error;
+        }
+
         router.push("/");
       },
       onError: (error) => {

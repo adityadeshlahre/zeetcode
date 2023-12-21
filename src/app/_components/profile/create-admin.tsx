@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { api } from "~/trpc/react";
 import { TAdminSchema } from "~/server/api/types";
 import { generateHashedPassword } from "~/utils/generateHashPass";
+import { generateToken } from "~/utils/generateToken";
 
 export default function AdminRegister() {
   const router = useRouter();
@@ -29,6 +30,7 @@ export default function AdminRegister() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const hasspass = await generateHashedPassword(password);
+    const token = await generateToken(email);
     try {
       createAdmin.mutate({
         username,
@@ -36,7 +38,7 @@ export default function AdminRegister() {
         name,
         profilePicture,
         password: hasspass,
-        token: "",
+        token: token,
       });
       console.error("registratation fuckedup");
     } catch (error) {

@@ -3,7 +3,7 @@ import { adminSchema, idSchema, userSchema } from "../types";
 
 export const tokenRouter = createTRPCRouter({
   generateAdminToken: publicProcedure
-    .input(adminSchema)
+    .input(adminSchema.pick({ email: true }))
     .mutation(async ({ input, ctx }) => {
       await ctx.db.admin.create({
         data: adminSchema.parse(input),
@@ -11,11 +11,12 @@ export const tokenRouter = createTRPCRouter({
     }),
 
   updateAdminToken: publicProcedure
-    .input(idSchema.pick({ id: true }))
+    .input(idSchema)
+    .input(adminSchema.pick({ token: true }))
     .mutation(async ({ input, ctx }) => {
       await ctx.db.admin.update({
         where: { id: input.id },
-        data: adminSchema.parse(input),
+        data: adminSchema.parse(input.token),
       });
     }),
 
@@ -26,8 +27,9 @@ export const tokenRouter = createTRPCRouter({
         where: { id: input.id },
       });
     }),
+
   generateUserToken: publicProcedure
-    .input(userSchema)
+    .input(userSchema.pick({ email: true }))
     .mutation(async ({ input, ctx }) => {
       await ctx.db.user.create({
         data: userSchema.parse(input),
@@ -35,11 +37,12 @@ export const tokenRouter = createTRPCRouter({
     }),
 
   updateUserToken: publicProcedure
-    .input(idSchema.pick({ id: true }))
+    .input(idSchema)
+    .input(userSchema.pick({ token: true }))
     .mutation(async ({ input, ctx }) => {
       await ctx.db.user.update({
         where: { id: input.id },
-        data: userSchema.parse(input),
+        data: userSchema.parse(input.token),
       });
     }),
 

@@ -1,16 +1,49 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
+import { api } from "~/trpc/server";
 
 const isLoggedIn: boolean = false;
 const isAdmin: boolean = false;
 const isTokenExpired: boolean = true;
+import { TAdminSchema, TUserSchema, idSchema } from "../api/types";
 
-export async function TokenGenerator(
-  request: NextRequest,
-  response: NextResponse,
-) {
-  //two manuplation function
-  //set CALLS too
-  const token = "3";
-  return token;
+export async function GetAdminToken(email: string) {
+  const getTokenDb = await api.token.generateAdminToken.mutate({
+    email,
+  });
+  console.log(getTokenDb);
+  return getTokenDb;
+}
+export async function SetAdminToken(id: string, token: string) {
+  const setTokenDb = await api.token.updateAdminToken.mutate({
+    id,
+    token,
+  });
+  console.log(setTokenDb);
+  return setTokenDb;
+}
+export async function DeleteAdminToken(id: string) {
+  const deleteTokenDb = await api.token.deleteAdminToken.mutate({ id });
+  console.log(deleteTokenDb);
+  return deleteTokenDb;
+}
+export async function GetUserToken(email: string) {
+  const getTokenDb = await api.token.generateUserToken.mutate({
+    email,
+  });
+  console.log(getTokenDb);
+  return getTokenDb;
+}
+export async function SetUserToken(id: string, token: string) {
+  const setTokenDb = await api.token.updateUserToken.mutate({
+    id,
+    token,
+  });
+  console.log(setTokenDb);
+  return setTokenDb;
+}
+export async function DeleteUserToken(id: string) {
+  const deleteTokenDb = await api.token.deleteUserToken.mutate({ id });
+  console.log(deleteTokenDb);
+  return deleteTokenDb;
 }
