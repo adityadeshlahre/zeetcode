@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
 
-export function challengesWithId(request: NextRequest) {
+export default function challengesWithId() {
   return <div>submission [id] loading</div>;
 }

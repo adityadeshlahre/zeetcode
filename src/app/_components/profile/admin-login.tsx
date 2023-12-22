@@ -1,8 +1,12 @@
+"use client";
+
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { api } from "~/trpc/react";
 import { comparePassword } from "~/utils/generateHashPass";
 import { GetUserPass } from "~/utils/returnId";
+import { GetUserToken } from "~/server/token";
+import { verifyToken } from "~/utils/generateToken";
 
 export default function AdminLogin() {
   const router = useRouter();
@@ -13,8 +17,20 @@ export default function AdminLogin() {
   const loginAdmin = api.admin.loginAdmin.useQuery(
     { email, password },
     {
-      onSuccess: () => {
-        //token setter function need to be called generateToken(email);
+      onSuccess: async () => {
+        //function fix needed
+        // const token = await GetUserToken(email);
+        // // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // // @ts-ignore
+        // if (!token) {1
+        //   return console.log("error: token not found");
+        // }
+        // const verifiedToken = await verifyToken(token);
+
+        // console.log(verifiedToken);
+        // if (verifiedToken !== token) {
+        //   return error;
+        // }
         router.push("/");
       },
       onError: (error) => {

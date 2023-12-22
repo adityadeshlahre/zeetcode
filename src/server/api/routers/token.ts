@@ -6,7 +6,7 @@ export const tokenRouter = createTRPCRouter({
     .input(adminSchema.pick({ email: true }))
     .mutation(async ({ input, ctx }) => {
       await ctx.db.admin.create({
-        data: adminSchema.parse(input),
+        data: adminSchema.parse(input.email),
       });
     }),
 
@@ -32,7 +32,7 @@ export const tokenRouter = createTRPCRouter({
     .input(userSchema.pick({ email: true }))
     .mutation(async ({ input, ctx }) => {
       await ctx.db.user.create({
-        data: userSchema.parse(input),
+        data: userSchema.parse(input.email),
       });
     }),
 

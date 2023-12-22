@@ -30,3 +30,5 @@ export const GetUserPass = async (email: string): Promise<string> => {
     throw new Error("Error getting user ID");
   }
 };
+
+//Throe Errors fix needed

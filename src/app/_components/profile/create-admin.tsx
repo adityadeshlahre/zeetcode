@@ -30,7 +30,7 @@ export default function AdminRegister() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const hasspass = await generateHashedPassword(password);
-    const token = await generateToken(email);
+    const token = await generateToken(email); //token not generating fix needed
     try {
       createAdmin.mutate({
         username,

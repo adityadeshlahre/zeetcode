@@ -1,4 +1,4 @@
-import { compare, hash } from "bcrypt";
+import { compare, hash } from "bcryptjs";
 
 export const generateHashedPassword = async (
   password: string,
@@ -24,3 +24,5 @@ export const comparePassword = async (
     throw new Error("Error comparing passwords");
   }
 };
+
+//Throe Errors fix needed

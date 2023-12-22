@@ -1,10 +1,11 @@
+"use client";
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { api } from "~/trpc/react";
 import { comparePassword } from "~/utils/generateHashPass";
 import { GetUserPass } from "~/utils/returnId";
-import { generateToken, verifyToken } from "~/utils/generateToken";
-import { GetUserToken, SetUserToken } from "~/server/token";
+import { verifyToken } from "~/utils/generateToken";
+import { GetUserToken } from "~/server/token";
 
 export default function UserLogin() {
   const router = useRouter();
@@ -16,17 +17,19 @@ export default function UserLogin() {
     { email, password },
     {
       onSuccess: async () => {
-        const token = await GetUserToken(email);
-        //types debug needed
-        if (!token) {
-          return console.log("error: token not found");
-        }
-        const verifiedToken = await verifyToken(token);
+        //Function running FIX needed
+        // const token = await GetUserToken(email);
+        // // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // // @ts-ignore
+        // if (!token) {
+        //   return console.log("error: token not found");
+        // }
+        // const verifiedToken = await verifyToken(token);
 
-        console.log(verifiedToken);
-        if (verifiedToken !== token) {
-          return error;
-        }
+        // console.log(verifiedToken);
+        // if (verifiedToken !== token) {
+        //   return error;
+        // }
 
         router.push("/");
       },
