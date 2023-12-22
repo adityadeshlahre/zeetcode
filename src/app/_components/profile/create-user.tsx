@@ -29,67 +29,113 @@ export default function UserRegister() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const hasspass = await generateHashedPassword(password);
-    const token = await generateToken(email); //token not generating fix needed
     try {
       createUser.mutate({
         username,
         email,
         name,
         profilePicture,
-        password: hasspass,
-        token: token,
+        token: "token",
+        password,
       });
-      console.error("registratation fuckedup");
     } catch (error) {
       console.error("Error during registration:", error);
     }
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username:
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </label>
-        <label>
-          Email:
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <label>
-          Name:
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
-        <label>
-          Profile Picture URL:
-          <input
-            type="text"
-            value={profilePicture}
-            onChange={(e) => setProfilePicture(e.target.value)}
-          />
-        </label>
-        <label>
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <button type="submit">Register</button>
+    <div className="flex h-screen items-center justify-center">
+      <form
+        className="mb-4 w-full max-w-md rounded bg-white px-8 pb-8 pt-6 shadow-md"
+        onSubmit={handleSubmit}
+      >
+        <h2 className="mb-6 text-center text-2xl font-bold">
+          User Registration
+        </h2>
+
+        <div className="mb-4">
+          <label
+            className="mb-2 block text-sm font-bold text-gray-700"
+            htmlFor="username"
+          >
+            Username:
+            <input
+              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </label>
+        </div>
+
+        <div className="mb-4">
+          <label
+            className="mb-2 block text-sm font-bold text-gray-700"
+            htmlFor="email"
+          >
+            Email:
+            <input
+              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </label>
+        </div>
+
+        <div className="mb-4">
+          <label
+            className="mb-2 block text-sm font-bold text-gray-700"
+            htmlFor="name"
+          >
+            Name:
+            <input
+              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </label>
+        </div>
+
+        <div className="mb-4">
+          <label
+            className="mb-2 block text-sm font-bold text-gray-700"
+            htmlFor="profilePicture"
+          >
+            Profile Picture URL:
+            <input
+              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+              type="text"
+              value={profilePicture}
+              onChange={(e) => setProfilePicture(e.target.value)}
+            />
+          </label>
+        </div>
+
+        <div className="mb-6">
+          <label
+            className="mb-2 block text-sm font-bold text-gray-700"
+            htmlFor="password"
+          >
+            Password:
+            <input
+              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
+        </div>
+
+        <div className="text-center">
+          <button
+            className="focus:shadow-outline rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
+            type="submit"
+          >
+            Register
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -29,18 +29,17 @@ export default function AdminRegister() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const hasspass = await generateHashedPassword(password);
-    const token = await generateToken(email); //token not generating fix needed
+    // const hasspass = await generateHashedPassword(password);
+    // const token = await generateToken(email); //token not generating fix needed
     try {
       createAdmin.mutate({
         username,
         email,
         name,
         profilePicture,
-        password: hasspass,
-        token: token,
+        token: "token",
+        password,
       });
-      console.error("registratation fuckedup");
     } catch (error) {
       console.error("Error during registration:", error);
     }
