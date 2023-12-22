@@ -24,19 +24,23 @@ export default function UserRegister() {
       setName("");
       setProfilePicture("");
       setPassword("");
+      router.push("/login");
     },
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      const hasspass = await generateHashedPassword(password);
+      const token = await generateToken(email);
+      console.log("ksdhfjkdsh");
       createUser.mutate({
         username,
         email,
         name,
         profilePicture,
-        token: "token",
-        password,
+        token: token,
+        password: hasspass,
       });
     } catch (error) {
       console.error("Error during registration:", error);
@@ -61,6 +65,7 @@ export default function UserRegister() {
             Username:
             <input
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+              id="username"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -76,6 +81,7 @@ export default function UserRegister() {
             Email:
             <input
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+              id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -91,6 +97,7 @@ export default function UserRegister() {
             Name:
             <input
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+              id="name"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -106,6 +113,7 @@ export default function UserRegister() {
             Profile Picture URL:
             <input
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+              id="profilePicture"
               type="text"
               value={profilePicture}
               onChange={(e) => setProfilePicture(e.target.value)}
@@ -121,6 +129,7 @@ export default function UserRegister() {
             Password:
             <input
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+              id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

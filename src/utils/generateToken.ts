@@ -5,7 +5,8 @@ const secret: string = process.env.JWT_SECRET || "";
 export const generateToken = async (email: string): Promise<string> => {
   try {
     const id = await GetUserId(email);
-
+    console.log("done getting id");
+    console.log(id);
     const token = sign({ userId: id }, secret, { expiresIn: "1h" });
 
     return token;

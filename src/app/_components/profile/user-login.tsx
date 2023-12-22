@@ -39,6 +39,7 @@ export default function UserLogin() {
           typeof error === "string" ? error : "An error occurred during login.";
         setError(errorMessage);
       },
+      enabled: false,
     },
   );
 

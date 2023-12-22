@@ -2,29 +2,31 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { idSchema, userLoginSchema, userSchema } from "../types";
 
 export const userRoute = createTRPCRouter({
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.db.user.findMany();
+  getAll: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.db.user.findMany();
   }),
 
-  getOne: publicProcedure.input(idSchema).query(({ input, ctx }) => {
-    return ctx.db.user.findUnique({
+  getOne: publicProcedure.input(idSchema).query(async ({ input, ctx }) => {
+    return await ctx.db.user.findUnique({
       where: idSchema.parse(input),
     });
   }),
 
   getIdOne: publicProcedure
     .input(userSchema.pick({ email: true }))
-    .query(({ input, ctx }) => {
-      return ctx.db.user.findUnique({
-        where: userSchema.parse(input),
+    .query(async ({ input, ctx }) => {
+      return await ctx.db.user.findUnique({
+        where: userSchema.parse(input.email),
       });
     }),
 
-  loginUser: publicProcedure.input(userLoginSchema).query(({ input, ctx }) => {
-    return ctx.db.user.findUnique({
-      where: userSchema.parse(input),
-    });
-  }),
+  loginUser: publicProcedure
+    .input(userLoginSchema)
+    .query(async ({ input, ctx }) => {
+      return await ctx.db.user.findFirst({
+        where: userLoginSchema.parse(input),
+      });
+    }),
 
   createUser: publicProcedure
     .input(userSchema)
@@ -35,7 +37,6 @@ export const userRoute = createTRPCRouter({
     }),
 
   updateUser: publicProcedure
-    .input(userSchema)
     .input(idSchema)
     .mutation(async ({ input, ctx }) => {
       await ctx.db.user.update({

@@ -2,7 +2,7 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { adminSchema, idSchema, userSchema } from "../types";
 
 export const tokenRouter = createTRPCRouter({
-  generateAdminToken: publicProcedure
+  setAdminToken: publicProcedure
     .input(adminSchema.pick({ email: true }))
     .mutation(async ({ input, ctx }) => {
       await ctx.db.admin.create({
@@ -28,7 +28,7 @@ export const tokenRouter = createTRPCRouter({
       });
     }),
 
-  generateUserToken: publicProcedure
+  setUserToken: publicProcedure
     .input(userSchema.pick({ email: true }))
     .mutation(async ({ input, ctx }) => {
       await ctx.db.user.create({

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { api } from "~/trpc/react";
 import { comparePassword } from "~/utils/generateHashPass";
 import { GetUserPass } from "~/utils/returnId";
@@ -39,6 +39,7 @@ export default function AdminLogin() {
           typeof error === "string" ? error : "An error occurred during login.";
         setError(errorMessage);
       },
+      enabled: false,
     },
   );
 
