@@ -15,7 +15,7 @@ export const challengeRouter = createTRPCRouter({
   createChallenge: publicProcedure
     .input(challengeSchema)
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.challenge.create({
+      return await ctx.db.challenge.create({
         data: challengeSchema.parse(input),
       });
     }),
@@ -24,7 +24,7 @@ export const challengeRouter = createTRPCRouter({
     .input(challengeSchema)
     .input(idSchema)
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.challenge.update({
+      return await ctx.db.challenge.update({
         where: {
           id: input.id,
         },
@@ -35,7 +35,7 @@ export const challengeRouter = createTRPCRouter({
   deleteChallenge: publicProcedure
     .input(idSchema)
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.challenge.delete({
+      return await ctx.db.challenge.delete({
         where: idSchema.parse(input),
       });
     }),

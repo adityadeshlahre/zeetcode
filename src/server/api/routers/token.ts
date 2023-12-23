@@ -4,7 +4,7 @@ import { adminSchema, idSchema, userSchema } from "../types";
 export const tokenRouter = createTRPCRouter({
   getAdminToken: publicProcedure
     .input(adminSchema.pick({ email: true }))
-    .mutation(async ({ input, ctx }) => {
+    .query(async ({ input, ctx }) => {
       return await ctx.db.admin.findUnique({
         where: adminSchema.parse(input.email),
       });
@@ -14,8 +14,8 @@ export const tokenRouter = createTRPCRouter({
     .input(idSchema)
     .input(adminSchema.pick({ token: true }))
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.admin.update({
-        where: { id: input.id },
+      return await ctx.db.admin.update({
+        where: adminSchema.parse({ id: input.id }),
         data: adminSchema.parse(input.token),
       });
     }),
@@ -23,8 +23,8 @@ export const tokenRouter = createTRPCRouter({
   deleteAdminToken: publicProcedure
     .input(idSchema)
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.admin.delete({
-        where: { id: input.id },
+      return await ctx.db.admin.delete({
+        where: adminSchema.parse({ id: input.id }),
       });
     }),
 
@@ -40,7 +40,7 @@ export const tokenRouter = createTRPCRouter({
     .input(idSchema)
     .input(userSchema.pick({ token: true }))
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.user.update({
+      return await ctx.db.user.update({
         where: { id: input.id },
         data: userSchema.parse(input.token),
       });
@@ -49,7 +49,7 @@ export const tokenRouter = createTRPCRouter({
   deleteUserToken: publicProcedure
     .input(idSchema)
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.user.delete({
+      return await ctx.db.user.delete({
         where: { id: input.id },
       });
     }),

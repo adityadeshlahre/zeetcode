@@ -17,7 +17,7 @@ export const submissionRouter = createTRPCRouter({
   createNewCodeSubmission: publicProcedure
     .input(submissionSchema)
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.submission.create({
+      return await ctx.db.submission.create({
         data: submissionSchema.parse(input),
       });
     }),
@@ -26,7 +26,7 @@ export const submissionRouter = createTRPCRouter({
     .input(submissionSchema)
     .input(idSchema)
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.submission.update({
+      return await ctx.db.submission.update({
         where: { id: input.id },
         data: submissionSchema.parse(input),
       });
@@ -35,7 +35,7 @@ export const submissionRouter = createTRPCRouter({
   deleteExistingCodeSubmission: publicProcedure
     .input(idSchema)
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.submission.delete({
+      return await ctx.db.submission.delete({
         where: { id: input.id },
       });
     }),

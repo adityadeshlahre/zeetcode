@@ -1,6 +1,6 @@
 import { api } from "~/trpc/server";
-import UserRegister from "../_components/profile/create-user";
-import UserLogin from "../_components/profile/user-login";
+import UserRegister from "../_components/profile/createUser";
+import UserLogin from "../_components/profile/userLogin";
 
 export default function Siginup() {
   return (

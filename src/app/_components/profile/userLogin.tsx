@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "~/trpc/react";
 import { comparePassword } from "~/utils/generateHashPass";
-import { GetUserId, GetUserPass } from "~/utils/returnId";
+import { GetUserId, GetUserPass } from "~/utils/return";
 import { verifyToken } from "~/utils/generateToken";
 import { GetUserToken } from "~/server/token";
 
@@ -23,16 +23,6 @@ export default function UserLogin() {
     { email: email, password: password },
     {
       onSuccess: async () => {
-        if (!token) {
-          return console.log("error: token not found");
-        }
-        const verifiedToken = await verifyToken(token.data?.token);
-        console.log(verifiedToken);
-        console.log("here2");
-        if (verifiedToken !== token) {
-          return error;
-        }
-        console.log("here3");
         router.push("/");
       },
       onError: (error) => {

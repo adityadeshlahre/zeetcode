@@ -17,11 +17,12 @@ export const generateToken = async (email: string): Promise<string> => {
   }
 };
 
-export const verifyToken = (token: string): Promise<string | null> => {
+export const verifyToken = (token: string): Promise<string> => {
   return new Promise((resolve, reject) => {
-    verify(token, secret, (err, decoded) => {
+    verify(token, secret.toString(), (err, decoded) => {
       if (err) {
         reject(err);
+        return;
       } else {
         resolve(decoded as string);
       }

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "~/trpc/react";
 import { comparePassword } from "~/utils/generateHashPass";
-import { GetUserPass } from "~/utils/returnId";
+import { GetUserPass } from "~/utils/return";
 // import { GetUserToken } from "~/server/token";
 import { verifyToken } from "~/utils/generateToken";
 
@@ -45,14 +45,14 @@ export default function AdminLogin() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // const hashedpassword: string = await GetUserPass(email);
-    // const passwordCorrect: boolean = await comparePassword(
-    //   password,
-    //   hashedpassword,
-    // );
-    // if (!passwordCorrect) {
-    //   return setError("Admin password is incorrect.");
-    // }
+    const hashedpassword: string = await GetUserPass(email);
+    const passwordCorrect: boolean = await comparePassword(
+      password,
+      hashedpassword,
+    );
+    if (!passwordCorrect) {
+      return setError("Admin password is incorrect.");
+    }
     loginAdmin.refetch();
   };
 

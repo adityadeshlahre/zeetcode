@@ -31,7 +31,7 @@ export const userRoute = createTRPCRouter({
   createUser: publicProcedure
     .input(userSchema)
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.user.create({
+      return await ctx.db.user.create({
         data: userSchema.parse(input),
       });
     }),
@@ -39,7 +39,7 @@ export const userRoute = createTRPCRouter({
   updateUser: publicProcedure
     .input(idSchema)
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.user.update({
+      return await ctx.db.user.update({
         where: {
           id: input.id.toString(),
         },
@@ -50,7 +50,7 @@ export const userRoute = createTRPCRouter({
   deleteUser: publicProcedure
     .input(idSchema)
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.user.delete({
+      return await ctx.db.user.delete({
         where: idSchema.parse(input),
       });
     }),

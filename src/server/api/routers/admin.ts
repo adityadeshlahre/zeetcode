@@ -31,7 +31,7 @@ export const adminRoute = createTRPCRouter({
   createAdmin: publicProcedure
     .input(adminSchema)
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.admin.create({
+      return await ctx.db.admin.create({
         data: adminSchema.parse(input),
       });
     }),
@@ -40,7 +40,7 @@ export const adminRoute = createTRPCRouter({
     .input(adminSchema)
     .input(idSchema)
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.admin.update({
+      return await ctx.db.admin.update({
         where: {
           id: input.id,
         },
@@ -51,7 +51,7 @@ export const adminRoute = createTRPCRouter({
   deleteAdmin: publicProcedure
     .input(idSchema)
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.admin.delete({
+      return await ctx.db.admin.delete({
         where: idSchema.parse(input),
       });
     }),
