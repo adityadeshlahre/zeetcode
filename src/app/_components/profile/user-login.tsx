@@ -3,9 +3,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "~/trpc/react";
 import { comparePassword } from "~/utils/generateHashPass";
-import { GetUserPass } from "~/utils/returnId";
+import { GetUserId, GetUserPass } from "~/utils/returnId";
 import { verifyToken } from "~/utils/generateToken";
-// import { GetUserToken } from "~/server/token";
+import { GetUserToken } from "~/server/token";
 
 export default function UserLogin() {
   const router = useRouter();
@@ -13,24 +13,26 @@ export default function UserLogin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
+  const token = api.token.getUserToken.useQuery(
+    { email },
+    {
+      enabled: false,
+    },
+  );
   const loginUser = api.user.loginUser.useQuery(
     { email: email, password: password },
     {
       onSuccess: async () => {
-        // //Function running FIX needed
-        // const token = await GetUserToken(email);
-        // // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // // @ts-ignore
-        // if (!token) {
-        //   return console.log("error: token not found");
-        // }
-        // const verifiedToken = await verifyToken(token);
-
-        // console.log(verifiedToken);
-        // if (verifiedToken !== token) {
-        //   return error;
-        // }
-
+        if (!token) {
+          return console.log("error: token not found");
+        }
+        const verifiedToken = await verifyToken(token.data?.token);
+        console.log(verifiedToken);
+        console.log("here2");
+        if (verifiedToken !== token) {
+          return error;
+        }
+        console.log("here3");
         router.push("/");
       },
       onError: (error) => {
@@ -45,14 +47,15 @@ export default function UserLogin() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // const hashedpassword: string = await GetUserPass(email);
-    // const passwordCorrect: boolean = await comparePassword(
-    //   password,
-    //   hashedpassword,
-    // );
-    // if (!passwordCorrect) {
-    //   return setError("User password is incorrect.");
-    // }
+    const hashedpassword: string = await GetUserPass(email);
+    const passwordCorrect: boolean = await comparePassword(
+      password,
+      hashedpassword,
+    );
+    if (passwordCorrect) {
+      return setError("User password is incorrect.");
+    }
+    token.refetch();
     loginUser.refetch();
   };
 

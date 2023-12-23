@@ -33,7 +33,6 @@ export default function UserRegister() {
     try {
       const hasspass = await generateHashedPassword(password);
       const token = await generateToken(email);
-      console.log("ksdhfjkdsh");
       createUser.mutate({
         username,
         email,

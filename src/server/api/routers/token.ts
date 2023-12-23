@@ -2,11 +2,11 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { adminSchema, idSchema, userSchema } from "../types";
 
 export const tokenRouter = createTRPCRouter({
-  setAdminToken: publicProcedure
+  getAdminToken: publicProcedure
     .input(adminSchema.pick({ email: true }))
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.admin.create({
-        data: adminSchema.parse(input.email),
+      return await ctx.db.admin.findUnique({
+        where: adminSchema.parse(input.email),
       });
     }),
 
@@ -28,11 +28,11 @@ export const tokenRouter = createTRPCRouter({
       });
     }),
 
-  setUserToken: publicProcedure
+  getUserToken: publicProcedure
     .input(userSchema.pick({ email: true }))
-    .mutation(async ({ input, ctx }) => {
-      await ctx.db.user.create({
-        data: userSchema.parse(input.email),
+    .query(async ({ input, ctx }) => {
+      return await ctx.db.user.findUnique({
+        where: userSchema.parse(input.email),
       });
     }),
 

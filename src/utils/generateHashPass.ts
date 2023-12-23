@@ -8,7 +8,7 @@ export const generateHashedPassword = async (
     return hashedPassword;
   } catch (error) {
     console.error("Error generating hashed password:", error);
-    throw new Error("Error generating hashed password");
+    return "error";
   }
 };
 
@@ -21,7 +21,7 @@ export const comparePassword = async (
     return isMatch;
   } catch (error) {
     console.error("Error comparing passwords:", error);
-    throw new Error("Error comparing passwords");
+    return false;
   }
 };
 

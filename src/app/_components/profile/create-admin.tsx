@@ -32,14 +32,14 @@ export default function AdminRegister() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const hasspass = await generateHashedPassword(password);
-    // const token = await generateToken(email); //token not generating fix needed
+    const token = await generateToken(email);
     try {
       createAdmin.mutate({
         username,
         email,
         name,
         profilePicture,
-        token: "token",
+        token: token,
         password: hasspass,
       });
     } catch (error) {

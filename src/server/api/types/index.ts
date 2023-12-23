@@ -4,7 +4,7 @@ export const idSchema = z.object({ id: z.string() });
 
 export const adminLoginSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(6).max(20),
+  password: z.string().min(6),
 });
 
 export const adminSchema = z.object({
@@ -12,13 +12,13 @@ export const adminSchema = z.object({
   name: z.string(),
   profilePicture: z.string(),
   email: z.string().email(),
-  password: z.string().min(6).max(20),
+  password: z.string().min(6),
   token: z.string(),
 });
 
 export const userLoginSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(6).max(20),
+  password: z.string().min(6),
 });
 
 export const userSchema = z.object({
@@ -26,7 +26,7 @@ export const userSchema = z.object({
   name: z.string(),
   profilePicture: z.string(),
   email: z.string().email(),
-  password: z.string().min(6).max(20),
+  password: z.string().min(6),
   token: z.string(),
 });
 

@@ -9,7 +9,7 @@ const isTokenExpired: boolean = true;
 import { TAdminSchema, TUserSchema, idSchema } from "../api/types";
 
 export async function GetAdminToken(email: string) {
-  const getTokenDb: unknown = await api.token.setAdminToken.mutate({
+  const getTokenDb = await api.token.getAdminToken.mutate({
     email,
   });
   console.log(getTokenDb);
@@ -28,12 +28,12 @@ export async function DeleteAdminToken(id: string) {
   console.log(deleteTokenDb);
   return deleteTokenDb;
 }
-export async function GetUserToken(email: string) {
-  const getTokenDb = await api.token.setUserToken.mutate({
+export async function GetUserToken(email: string): Promise<string | unknown> {
+  const getTokenDb = await api.token.getUserToken.query({
     email,
   });
   console.log(getTokenDb);
-  return getTokenDb;
+  return getTokenDb?.token;
 }
 export async function SetUserToken(id: string, token: string) {
   const setTokenDb = await api.token.updateUserToken.mutate({
