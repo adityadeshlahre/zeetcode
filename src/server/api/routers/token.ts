@@ -1,17 +1,25 @@
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-import { adminSchema, idSchema, userSchema } from "../types";
+import {
+  adminSchema,
+  adminTokenSchema,
+  idSchema,
+  userSchema,
+  userTokenSchema,
+} from "../types";
 
 export const tokenRouter = createTRPCRouter({
   getAdminToken: publicProcedure
-    .input(adminSchema.pick({ email: true }))
+    .input(adminTokenSchema.pick({ email: true }))
     .query(async ({ input, ctx }) => {
-      return await ctx.db.admin.findUnique({
-        where: adminSchema.parse(input.email),
+      const data = await ctx.db.admin.findUnique({
+        where: adminTokenSchema.parse({ email: input.email }),
       });
+      console.log(typeof data?.token);
+      return data;
     }),
 
   updateAdminToken: publicProcedure
-    .input(idSchema)
+    .input(idSchema.pick({ id: true }))
     .input(adminSchema.pick({ token: true }))
     .mutation(async ({ input, ctx }) => {
       return await ctx.db.admin.update({
@@ -21,7 +29,7 @@ export const tokenRouter = createTRPCRouter({
     }),
 
   deleteAdminToken: publicProcedure
-    .input(idSchema)
+    .input(idSchema.pick({ id: true }))
     .mutation(async ({ input, ctx }) => {
       return await ctx.db.admin.delete({
         where: adminSchema.parse({ id: input.id }),
@@ -29,15 +37,17 @@ export const tokenRouter = createTRPCRouter({
     }),
 
   getUserToken: publicProcedure
-    .input(userSchema.pick({ email: true }))
+    .input(userTokenSchema.pick({ email: true }))
     .query(async ({ input, ctx }) => {
-      return await ctx.db.user.findUnique({
-        where: userSchema.parse(input.email),
+      const data = await ctx.db.user.findUnique({
+        where: userTokenSchema.parse({ email: input.email }),
       });
+      console.log(typeof data?.token);
+      return data;
     }),
 
   updateUserToken: publicProcedure
-    .input(idSchema)
+    .input(idSchema.pick({ id: true }))
     .input(userSchema.pick({ token: true }))
     .mutation(async ({ input, ctx }) => {
       return await ctx.db.user.update({
@@ -47,7 +57,7 @@ export const tokenRouter = createTRPCRouter({
     }),
 
   deleteUserToken: publicProcedure
-    .input(idSchema)
+    .input(idSchema.pick({ id: true }))
     .mutation(async ({ input, ctx }) => {
       return await ctx.db.user.delete({
         where: { id: input.id },

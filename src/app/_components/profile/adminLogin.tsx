@@ -4,8 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "~/trpc/react";
 import { comparePassword } from "~/utils/generateHashPass";
-import { GetUserPass } from "~/utils/return";
-// import { GetUserToken } from "~/server/token";
+import { GetAdminPass, GetUserPass } from "~/utils/return";
+import { GetUserToken } from "~/server/token";
 import { verifyToken } from "~/utils/generateToken";
 
 export default function AdminLogin() {
@@ -13,6 +13,11 @@ export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+
+  const token = api.token.getAdminToken.useQuery(
+    { email: email },
+    { enabled: false },
+  );
 
   const loginAdmin = api.admin.loginAdmin.useQuery(
     { email: email, password: password },
@@ -25,18 +30,20 @@ export default function AdminLogin() {
         // if (!token) {1
         //   return console.log("error: token not found");
         // }
-        // const verifiedToken = await verifyToken(token);
-
-        // console.log(verifiedToken);
-        // if (verifiedToken !== token) {
-        //   return error;
-        // }
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const isVerified = await verifyToken(token.data?.token, email);
+        if (!isVerified) {
+          return console.error("Admin token is INVALID");
+        }
         router.push("/");
       },
-      onError: (error) => {
+      onError: (error: any) => {
         console.error("Error during login:", error);
         const errorMessage =
-          typeof error === "string" ? error : "An error occurred during login.";
+          typeof error === "string"
+            ? error
+            : "An error occurred during Admin login.";
         setError(errorMessage);
       },
       enabled: false,
@@ -45,20 +52,23 @@ export default function AdminLogin() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const hashedpassword: string = await GetUserPass(email);
+    const hashedpassword: string = await GetAdminPass(email);
+    console.log(hashedpassword);
     const passwordCorrect: boolean = await comparePassword(
       password,
       hashedpassword,
     );
+    console.log(password, ":", hashedpassword, ":", passwordCorrect);
     if (!passwordCorrect) {
       return setError("Admin password is incorrect.");
     }
-    loginAdmin.refetch();
+    await token.refetch();
+    await loginAdmin.refetch();
   };
 
   return (
     <div className="mx-auto mt-20 max-w-md rounded-md bg-white p-6 shadow-md">
-      <h1 className="mb-4 text-2xl font-semibold">Login</h1>
+      <h1 className="mb-4 text-2xl font-semibold">Admin Login</h1>
       <form onSubmit={handleSubmit}>
         <label className="mb-4 block">
           <span>Email:</span>

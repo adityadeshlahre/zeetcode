@@ -1,6 +1,8 @@
 import { z } from "zod";
 
 export const idSchema = z.object({ id: z.string() });
+export const userTokenSchema = z.object({ email: z.string().email() });
+export const adminTokenSchema = z.object({ email: z.string().email() });
 
 export const adminLoginSchema = z.object({
   email: z.string().email(),
@@ -8,7 +10,7 @@ export const adminLoginSchema = z.object({
 });
 
 export const adminSchema = z.object({
-  username: z.string().min(6).max(10),
+  username: z.string().min(1).max(10),
   name: z.string(),
   profilePicture: z.string(),
   email: z.string().email(),
@@ -22,7 +24,7 @@ export const userLoginSchema = z.object({
 });
 
 export const userSchema = z.object({
-  username: z.string().min(6).max(10),
+  username: z.string().min(1).max(10),
   name: z.string(),
   profilePicture: z.string(),
   email: z.string().email(),

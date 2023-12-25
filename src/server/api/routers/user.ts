@@ -15,9 +15,10 @@ export const userRoute = createTRPCRouter({
   getIdOne: publicProcedure
     .input(userSchema.pick({ email: true }))
     .query(async ({ input, ctx }) => {
-      return await ctx.db.user.findUnique({
+      const pass = await ctx.db.user.findUnique({
         where: userSchema.parse(input.email),
       });
+      return pass;
     }),
 
   loginUser: publicProcedure

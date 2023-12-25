@@ -1,6 +1,4 @@
-import { api } from "~/trpc/server";
-import AdminRegister from "../../_components/profile/createAdmin";
-import AdminLogin from "~/app/_components/profile/admin-login";
+import AdminLogin from "~/app/_components/profile/adminLogin";
 
 export default function Siginup() {
   return (

@@ -13,22 +13,41 @@ export default function UserLogin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
+  //token and passwors issue
+
   const token = api.token.getUserToken.useQuery(
-    { email },
-    {
-      enabled: false,
-    },
+    { email: email },
+    { enabled: false },
   );
+
+  const hasspass = api.user.getIdOne.useQuery(
+    { email: email },
+    { enabled: false },
+  );
+
   const loginUser = api.user.loginUser.useQuery(
     { email: email, password: password },
     {
       onSuccess: async () => {
+        // const token = await GetUserToken(email);
+        // const token1 = await GetUserId(email);
+        // console.log(token.data);
+        // const token2 = await GetUserPass(email);
+        // console.log(token2);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const isVerified = await verifyToken(token.data?.token, email);
+        if (!isVerified) {
+          return console.error("User token is INVALID");
+        }
         router.push("/");
       },
-      onError: (error) => {
+      onError: (error: any) => {
         console.error("Error during login:", error);
         const errorMessage =
-          typeof error === "string" ? error : "An error occurred during login.";
+          typeof error === "string"
+            ? error
+            : "An error occurred during User login.";
         setError(errorMessage);
       },
       enabled: false,
@@ -40,18 +59,20 @@ export default function UserLogin() {
     const hashedpassword: string = await GetUserPass(email);
     const passwordCorrect: boolean = await comparePassword(
       password,
-      hashedpassword,
+      hasspass.data?.password || "",
     );
-    if (passwordCorrect) {
+    console.log(password, ":", hashedpassword, ":", passwordCorrect);
+    if (!passwordCorrect) {
       return setError("User password is incorrect.");
     }
-    token.refetch();
-    loginUser.refetch();
+    await hasspass.refetch();
+    await token.refetch();
+    await loginUser.refetch();
   };
 
   return (
     <div className="mx-auto mt-20 max-w-md rounded-md bg-white p-6 shadow-md">
-      <h1 className="mb-4 text-2xl font-semibold">Login</h1>
+      <h1 className="mb-4 text-2xl font-semibold">User Login</h1>
       <form onSubmit={handleSubmit}>
         <label className="mb-4 block">
           <span>Email:</span>

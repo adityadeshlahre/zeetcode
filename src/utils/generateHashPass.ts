@@ -8,7 +8,7 @@ export const generateHashedPassword = async (
     return hashedPassword;
   } catch (error) {
     console.error("Error generating hashed password:", error);
-    return "error";
+    throw new Error("Error generating token");
   }
 };
 
