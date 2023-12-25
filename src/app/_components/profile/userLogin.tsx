@@ -2,9 +2,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "~/trpc/react";
-import { comparePassword } from "~/utils/generateHashPass";
+import { ComparePassword } from "~/utils/generateHashPass";
 import { GetUserId, GetUserPass } from "~/utils/return";
-import { verifyToken } from "~/utils/generateToken";
+import { VerifyToken } from "~/utils/generateToken";
 import { GetUserToken } from "~/server/token";
 
 export default function UserLogin() {
@@ -20,7 +20,7 @@ export default function UserLogin() {
     { enabled: false },
   );
 
-  const hasspass = api.user.getIdOne.useQuery(
+  const hashedpassword = api.user.getIdOne.useQuery(
     { email: email },
     { enabled: false },
   );
@@ -36,7 +36,7 @@ export default function UserLogin() {
         // console.log(token2);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        const isVerified = await verifyToken(token.data?.token, email);
+        const isVerified = await VerifyToken(token.data?.token, email);
         if (!isVerified) {
           return console.error("User token is INVALID");
         }
@@ -56,18 +56,34 @@ export default function UserLogin() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const hashedpassword: string = await GetUserPass(email);
-    const passwordCorrect: boolean = await comparePassword(
-      password,
-      hasspass.data?.password || "",
-    );
-    console.log(password, ":", hashedpassword, ":", passwordCorrect);
-    if (!passwordCorrect) {
-      return setError("User password is incorrect.");
+    try {
+      // const hashedpassword: string = await GetUserPass(email);
+      const hashpassword = hashedpassword.data?.password || "";
+      const passwordCorrect: boolean = await ComparePassword(
+        password,
+        hashpassword,
+      );
+
+      console.log(
+        password,
+        ":",
+        hashedpassword,
+        ":",
+        passwordCorrect,
+        ":",
+        hashpassword,
+      );
+
+      if (!passwordCorrect) {
+        return setError("User password is incorrect.");
+      }
+      await hashedpassword.refetch();
+      await token.refetch();
+      await loginUser.refetch();
+    } catch (error) {
+      console.error("Error getting user password:", error);
+      setError("An error occurred while getting user password.");
     }
-    await hasspass.refetch();
-    await token.refetch();
-    await loginUser.refetch();
   };
 
   return (

@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "~/trpc/react";
-import { comparePassword } from "~/utils/generateHashPass";
+import { ComparePassword } from "~/utils/generateHashPass";
 import { GetAdminPass, GetUserPass } from "~/utils/return";
 import { GetUserToken } from "~/server/token";
-import { verifyToken } from "~/utils/generateToken";
+import { VerifyToken } from "~/utils/generateToken";
 
 export default function AdminLogin() {
   const router = useRouter();
@@ -32,7 +32,7 @@ export default function AdminLogin() {
         // }
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        const isVerified = await verifyToken(token.data?.token, email);
+        const isVerified = await VerifyToken(token.data?.token, email);
         if (!isVerified) {
           return console.error("Admin token is INVALID");
         }
@@ -54,7 +54,7 @@ export default function AdminLogin() {
     e.preventDefault();
     const hashedpassword: string = await GetAdminPass(email);
     console.log(hashedpassword);
-    const passwordCorrect: boolean = await comparePassword(
+    const passwordCorrect: boolean = await ComparePassword(
       password,
       hashedpassword,
     );

@@ -1,6 +1,6 @@
 import { compare, hash } from "bcryptjs";
 
-export const generateHashedPassword = async (
+export const GenerateHashedPassword = async (
   password: string,
 ): Promise<string> => {
   try {
@@ -12,7 +12,7 @@ export const generateHashedPassword = async (
   }
 };
 
-export const comparePassword = async (
+export const ComparePassword = async (
   password: string,
   hashedPassword: string,
 ): Promise<boolean> => {

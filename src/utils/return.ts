@@ -6,10 +6,10 @@ export const GetUserId = async (email: string): Promise<string> => {
   //this function need type fixes
   try {
     const user = await api.user.getIdOne.query({ email });
-    const uId: string = user?.id || "";
-    console.log(uId);
+    const userId: string = user?.id || "";
+    console.log(userId);
 
-    return uId;
+    return userId;
   } catch (error) {
     console.error("Error getting user ID:", error);
     return "undefined";
@@ -20,13 +20,12 @@ export const GetUserId = async (email: string): Promise<string> => {
 export const GetUserPass = async (email: string): Promise<string> => {
   try {
     //this function need type fixes
-    console.log("here");
     const user = await api.user.getIdOne.query({ email });
     console.log("here2");
-    const uIdPass: string = user?.password || "";
-    console.log(uIdPass);
+    const userPass: string = user?.password || "";
+    console.log(userPass);
     console.log("here3");
-    return uIdPass;
+    return userPass;
   } catch (error) {
     console.error("Error getting user ID:", error);
     return "undefined";
@@ -38,10 +37,10 @@ export const GetAdminId = async (email: string): Promise<string> => {
   //this function need type fixes
   try {
     const admin = await api.admin.getIdAdmin.query({ email });
-    const uId: string = admin?.id || "";
-    console.log(uId);
+    const adminId: string = admin?.id || "";
+    console.log(adminId);
 
-    return uId;
+    return adminId;
   } catch (error) {
     console.error("Error getting user ID:", error);
     return "undefined";
@@ -53,9 +52,9 @@ export const GetAdminPass = async (email: string): Promise<string> => {
   try {
     //this function need type fixes
     const admin = await api.admin.getIdAdmin.query({ email });
-    const uIdPass: string = admin?.password || "";
-    console.log(uIdPass);
-    return uIdPass;
+    const adminPass: string = admin?.password || "";
+    console.log(adminPass);
+    return adminPass;
   } catch (error) {
     console.error("Error getting user ID:", error);
     return "undefined";

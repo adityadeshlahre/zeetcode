@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "~/trpc/react";
 import { TAdminSchema } from "~/server/api/types";
-import { generateHashedPassword } from "~/utils/generateHashPass";
-import { generateToken } from "~/utils/generateToken";
+import { GenerateHashedPassword } from "~/utils/generateHashPass";
+import { GenerateToken } from "~/utils/generateToken";
 
 export default function AdminRegister() {
   const router = useRouter();
@@ -31,8 +31,8 @@ export default function AdminRegister() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const hasspass = await generateHashedPassword(password);
-    const token = await generateToken(email);
+    const hasspass = await GenerateHashedPassword(password);
+    const token = await GenerateToken(email);
     try {
       createAdmin.mutate({
         username,

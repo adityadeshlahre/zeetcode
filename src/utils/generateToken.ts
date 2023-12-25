@@ -1,6 +1,6 @@
 import { createHash } from "crypto";
 
-export const generateToken = async (email: string): Promise<string> => {
+export const GenerateToken = async (email: string): Promise<string> => {
   try {
     const hash = createHash("sha256");
     const token = hash.update(email).digest("hex");
@@ -12,12 +12,12 @@ export const generateToken = async (email: string): Promise<string> => {
   }
 };
 
-export const verifyToken = async (
+export const VerifyToken = async (
   token: string,
   email: string,
 ): Promise<boolean> => {
   try {
-    const hashedEmail = await generateToken(email);
+    const hashedEmail = await GenerateToken(email);
 
     return token === hashedEmail;
   } catch (error) {

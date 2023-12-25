@@ -13,11 +13,12 @@ export const userRoute = createTRPCRouter({
   }),
 
   getIdOne: publicProcedure
-    .input(userSchema.pick({ email: true }))
+    .input(userLoginSchema.pick({ email: true }))
     .query(async ({ input, ctx }) => {
-      const pass = await ctx.db.user.findUnique({
-        where: userSchema.parse(input.email),
+      const pass = await ctx.db.user.findFirst({
+        where: userLoginSchema.parse({ emai: input.email }),
       });
+      console.log(typeof pass?.password);
       return pass;
     }),
 
