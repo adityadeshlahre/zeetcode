@@ -23,16 +23,7 @@ export default function AdminLogin() {
     { email: email, password: password },
     {
       onSuccess: async () => {
-        //function fix needed
-        // const token = await GetUserToken(email);
-        // // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // // @ts-ignore
-        // if (!token) {1
-        //   return console.log("error: token not found");
-        // }
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        const isVerified = await VerifyToken(token.data?.token, email);
+        const isVerified = await VerifyToken(token.data?.token || "", email);
         if (!isVerified) {
           return console.error("Admin token is INVALID");
         }
@@ -53,12 +44,10 @@ export default function AdminLogin() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const hashedpassword: string = await GetAdminPass(email);
-    console.log(hashedpassword);
     const passwordCorrect: boolean = await ComparePassword(
       password,
       hashedpassword,
     );
-    console.log(password, ":", hashedpassword, ":", passwordCorrect);
     if (!passwordCorrect) {
       return setError("Admin password is incorrect.");
     }

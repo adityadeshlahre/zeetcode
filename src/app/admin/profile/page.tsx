@@ -1,11 +1,11 @@
 import { NextRequest } from "next/server";
-import UserProfile from "../_components/profile/userProfile";
+import AdminProfile from "~/app/_components/profile/adminProfile";
 
 export default function profile() {
   return (
     <div>
       profile loading
-      <UserProfile />
+      <AdminProfile />
     </div>
   );
 }

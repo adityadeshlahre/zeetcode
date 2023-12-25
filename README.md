@@ -15,7 +15,9 @@
 - [ ] Middelware
 - [ ] ProcedureCalls
 - [ ] Pages Router
-- [ ] zod infered types to frontEnd
+- [x] zod infered types to frontEnd
+- [ ] Judge0 [as code eval]
+- [ ] Monaco Code Editior
 - [ ] Adding more....
 
 ## Create T3 App

@@ -1,5 +1,10 @@
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-import { idSchema, userLoginSchema, userSchema } from "../types";
+import {
+  idSchema,
+  userLoginSchema,
+  userSchema,
+  userTokenSchema,
+} from "../types";
 
 export const userRoute = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
@@ -13,13 +18,11 @@ export const userRoute = createTRPCRouter({
   }),
 
   getIdOne: publicProcedure
-    .input(userLoginSchema.pick({ email: true }))
+    .input(userTokenSchema.pick({ email: true }))
     .query(async ({ input, ctx }) => {
-      const pass = await ctx.db.user.findFirst({
-        where: userLoginSchema.parse({ emai: input.email }),
+      return await ctx.db.user.findUnique({
+        where: userTokenSchema.parse({ email: input.email }),
       });
-      console.log(typeof pass?.password);
-      return pass;
     }),
 
   loginUser: publicProcedure
