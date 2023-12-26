@@ -14,7 +14,7 @@ const inter = Inter({
 export const metadata = {
   title: "ZeetCode",
   description: "LeetCode replica ZeetCode",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [{ rel: "icon", url: "/fplogoblack.ico" }],
 };
 
 export default function RootLayout({

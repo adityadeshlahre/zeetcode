@@ -7,8 +7,7 @@ export const GetUserId = async (email: string): Promise<string> => {
   //this function need type fixes
   try {
     const user = await api.user.getIdOne.query({ email: email });
-    const userId: string = user?.id || "";
-    console.log(userId);
+    const userId: string = user?.id as string;
 
     return userId;
   } catch (error) {
@@ -22,7 +21,8 @@ export const GetUserPass = async (email: string): Promise<string> => {
   try {
     //this function need type fixes
     const user = await api.user.getIdOne.query({ email: email });
-    const userPass: string = user?.password || "";
+    const userPass: string = user?.password as string;
+
     return userPass;
   } catch (error) {
     console.error("Error getting user ID:", error);
@@ -35,8 +35,7 @@ export const GetAdminId = async (email: string): Promise<string> => {
   //this function need type fixes
   try {
     const admin = await api.admin.getIdAdmin.query({ email: email });
-    const adminId: string = admin?.id || "";
-    console.log(adminId);
+    const adminId: string = admin?.id as string;
 
     return adminId;
   } catch (error) {
@@ -50,8 +49,8 @@ export const GetAdminPass = async (email: string): Promise<string> => {
   try {
     //this function need type fixes
     const admin = await api.admin.getIdAdmin.query({ email: email });
-    const adminPass: string = admin?.password || "";
-    console.log(adminPass);
+    const adminPass: string = admin?.password as string;
+
     return adminPass;
   } catch (error) {
     console.error("Error getting user ID:", error);

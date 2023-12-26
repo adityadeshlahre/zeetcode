@@ -31,7 +31,9 @@ export default function UserProfile() {
       <p>
         <strong>Profile Picture:</strong> {userProfile.data?.image}
       </p>
-      {/* Add more fields as needed */}
+      <p>
+        <strong>Token:</strong> {userProfile.data?.token}
+      </p>
     </div>
   );
 }
