@@ -29,7 +29,10 @@ export const userRoute = createTRPCRouter({
     .input(userLoginSchema)
     .query(async ({ input, ctx }) => {
       return await ctx.db.user.findFirst({
-        where: userLoginSchema.parse(input),
+        where: userLoginSchema.parse({
+          email: input.email,
+          password: input.password,
+        }),
       });
     }),
 

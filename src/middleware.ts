@@ -1,3 +1,5 @@
+// export { default } from "next-auth/middleware";
+
 import { NextResponse, NextRequest } from "next/server";
 
 export function middleware(request: NextRequest, response: NextResponse) {
@@ -13,7 +15,7 @@ export function middleware(request: NextRequest, response: NextResponse) {
 }
 
 export const config = {
-  // matcher: ["/login", "/register", "/api/:path*", "/challenges/:path*"],
+  // matcher: ["/login", "/api/:path*", "/challenges/:path*"],
 };
 
 //need function changes [ isLoggedIn]

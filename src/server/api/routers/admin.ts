@@ -28,8 +28,11 @@ export const adminRoute = createTRPCRouter({
   loginAdmin: publicProcedure
     .input(adminLoginSchema)
     .query(async ({ input, ctx }) => {
-      return await ctx.db.admin.findFirst({
-        where: adminLoginSchema.parse(input),
+      return await ctx.db.admin.findUnique({
+        where: adminLoginSchema.parse({
+          email: input.email,
+          password: input.password,
+        }),
       });
     }),
 

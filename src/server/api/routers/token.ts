@@ -11,11 +11,9 @@ export const tokenRouter = createTRPCRouter({
   getAdminToken: publicProcedure
     .input(adminTokenSchema.pick({ email: true }))
     .query(async ({ input, ctx }) => {
-      const data = await ctx.db.admin.findUnique({
+      return await ctx.db.admin.findUnique({
         where: adminTokenSchema.parse({ email: input.email }),
       });
-      console.log(typeof data?.token);
-      return data;
     }),
 
   updateAdminToken: publicProcedure
@@ -39,11 +37,9 @@ export const tokenRouter = createTRPCRouter({
   getUserToken: publicProcedure
     .input(userTokenSchema.pick({ email: true }))
     .query(async ({ input, ctx }) => {
-      const data = await ctx.db.user.findUnique({
+      return await ctx.db.user.findUnique({
         where: userTokenSchema.parse({ email: input.email }),
       });
-      console.log(typeof data?.token);
-      return data;
     }),
 
   updateUserToken: publicProcedure

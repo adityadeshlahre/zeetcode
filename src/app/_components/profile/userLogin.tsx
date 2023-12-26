@@ -7,7 +7,7 @@ import { GetAdminId, GetUserId, GetUserPass } from "~/utils/return";
 import { VerifyToken } from "~/utils/generateToken";
 import { GetUserToken } from "~/server/token";
 
-export default async function UserLogin() {
+export default function UserLogin() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,11 +22,13 @@ export default async function UserLogin() {
     { email: email, password: password },
     {
       onSuccess: async () => {
-        const isVerified = await VerifyToken(token.data?.token || "", email);
+        const isVerified = await VerifyToken(
+          token.data?.token as string,
+          email,
+        );
         if (!isVerified) {
           return console.error("User token is INVALID");
         }
-        console.log(isVerified);
         router.push("/");
       },
       onError: (error: any) => {

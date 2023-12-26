@@ -1,19 +1,37 @@
 "use client";
-//testing routes [frontEnd]
 import { api } from "~/trpc/react";
 
 export default function UserProfile() {
   const email: string = "useruser@user.user";
   const userProfile = api.user.getIdOne.useQuery({ email: email });
+
+  if (userProfile.error) {
+    return <div>Error loading user profile</div>;
+  }
+
+  if (userProfile.isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
-      <p>{userProfile.data?.token}</p>
-      <p>{userProfile.data?.profilePicture}</p>
-      <p>{userProfile.data?.id}</p>
-      <p>{userProfile.data?.username}</p>
-      <p>{userProfile.data?.name}</p>
-      <p>{userProfile.data?.email}</p>
-      <p>{userProfile.data?.name}</p>
+      <h4>User Profile:</h4>
+      <p>
+        <strong>ID:</strong> {userProfile.data?.id}
+      </p>
+      <p>
+        <strong>Username:</strong> {userProfile.data?.username}
+      </p>
+      <p>
+        <strong>Name:</strong> {userProfile.data?.name}
+      </p>
+      <p>
+        <strong>Email:</strong> {userProfile.data?.email}
+      </p>
+      <p>
+        <strong>Profile Picture:</strong> {userProfile.data?.profilePicture}
+      </p>
+      {/* Add more fields as needed */}
     </div>
   );
 }

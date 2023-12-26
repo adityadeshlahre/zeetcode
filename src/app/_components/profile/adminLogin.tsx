@@ -23,7 +23,10 @@ export default function AdminLogin() {
     { email: email, password: password },
     {
       onSuccess: async () => {
-        const isVerified = await VerifyToken(token.data?.token || "", email);
+        const isVerified = await VerifyToken(
+          token.data?.token as string,
+          email,
+        );
         if (!isVerified) {
           return console.error("Admin token is INVALID");
         }

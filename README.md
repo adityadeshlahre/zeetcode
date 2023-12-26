@@ -4,13 +4,13 @@
 
 > :memo: **Note** This clone is build with in very latest fashion the <strong>T3 Stack</strong>.
 
-## Few _MOTE_ planing to implement
+# Few _MOTE_ planing to implement
 
 - [ ] Redis (want to use this queue)
 - [ ] Docker File
 - [ ] Adding more....
 
-## ToFix
+# ToFix
 
 - [ ] Middelware
 - [ ] ProcedureCalls
@@ -18,6 +18,7 @@
 - [x] zod infered types to frontEnd
 - [ ] Judge0 [as code eval]
 - [ ] Monaco Code Editior
+- [ ] NextAuth [middleware setup left]
 - [ ] Adding more....
 
 ## Create T3 App
