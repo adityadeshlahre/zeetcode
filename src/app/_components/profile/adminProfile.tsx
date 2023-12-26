@@ -8,7 +8,7 @@ export default function AdminProfile() {
   return (
     <div>
       <p>{adminProfile.data?.token}</p>
-      <p>{adminProfile.data?.profilePicture}</p>
+      <p>{adminProfile.data?.image}</p>
       <p>{adminProfile.data?.id}</p>
       <p>{adminProfile.data?.username}</p>
       <p>{adminProfile.data?.name}</p>

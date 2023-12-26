@@ -29,7 +29,7 @@ export default function UserProfile() {
         <strong>Email:</strong> {userProfile.data?.email}
       </p>
       <p>
-        <strong>Profile Picture:</strong> {userProfile.data?.profilePicture}
+        <strong>Profile Picture:</strong> {userProfile.data?.image}
       </p>
       {/* Add more fields as needed */}
     </div>

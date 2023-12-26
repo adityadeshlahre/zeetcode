@@ -13,8 +13,7 @@ export default function UserRegister() {
   const [name, setName] = useState<TUserSchema["name"]>("");
   const [email, setEmail] = useState<TUserSchema["email"]>("");
   const [password, setPassword] = useState<TUserSchema["password"]>("");
-  const [profilePicture, setProfilePicture] =
-    useState<TUserSchema["profilePicture"]>("");
+  const [image, setImage] = useState<TUserSchema["image"]>("");
 
   const createUser = api.user.createUser.useMutation({
     onSuccess: () => {
@@ -22,7 +21,7 @@ export default function UserRegister() {
       setUsername("");
       setEmail("");
       setName("");
-      setProfilePicture("");
+      setImage("");
       setPassword("");
       router.push("/login");
     },
@@ -37,7 +36,7 @@ export default function UserRegister() {
         username,
         email,
         name,
-        profilePicture,
+        image,
         token: token,
         password: hasspass,
       });
@@ -112,10 +111,10 @@ export default function UserRegister() {
             Profile Picture URL:
             <input
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-              id="profilePicture"
+              id="image"
               type="text"
-              value={profilePicture}
-              onChange={(e) => setProfilePicture(e.target.value)}
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
             />
           </label>
         </div>

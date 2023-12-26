@@ -13,8 +13,7 @@ export default function AdminRegister() {
   const [name, setName] = useState<TAdminSchema["name"]>("");
   const [email, setEmail] = useState<TAdminSchema["email"]>("");
   const [password, setPassword] = useState<TAdminSchema["password"]>("");
-  const [profilePicture, setProfilePicture] =
-    useState<TAdminSchema["profilePicture"]>("");
+  const [image, setImage] = useState<TAdminSchema["image"]>("");
 
   const createAdmin = api.admin.createAdmin.useMutation({
     onSuccess: () => {
@@ -22,7 +21,7 @@ export default function AdminRegister() {
       setUsername("");
       setEmail("");
       setName("");
-      setProfilePicture("");
+      setImage("");
       setPassword("");
 
       router.push("/admin/login");
@@ -38,7 +37,7 @@ export default function AdminRegister() {
         username,
         email,
         name,
-        profilePicture,
+        image,
         token: token,
         password: hasspass,
       });
@@ -108,15 +107,15 @@ export default function AdminRegister() {
         <div className="mb-4">
           <label
             className="mb-2 block text-sm font-bold text-gray-700"
-            htmlFor="profilePicture"
+            htmlFor="image"
           >
             Profile Picture URL:
             <input
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-              id="profilePicture"
+              id="image"
               type="text"
-              value={profilePicture}
-              onChange={(e) => setProfilePicture(e.target.value)}
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
             />
           </label>
         </div>

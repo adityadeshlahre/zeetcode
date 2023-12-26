@@ -12,7 +12,7 @@ export const adminLoginSchema = z.object({
 export const adminSchema = z.object({
   username: z.string().min(1).max(10),
   name: z.string(),
-  profilePicture: z.string(),
+  image: z.string(),
   email: z.string().email(),
   password: z.string().min(6),
   token: z.string(),
@@ -26,7 +26,7 @@ export const userLoginSchema = z.object({
 export const userSchema = z.object({
   username: z.string().min(1).max(10),
   name: z.string(),
-  profilePicture: z.string(),
+  image: z.string(),
   email: z.string().email(),
   password: z.string().min(6),
   token: z.string(),
