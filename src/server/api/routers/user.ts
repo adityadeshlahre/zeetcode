@@ -13,7 +13,7 @@ export const userRoute = createTRPCRouter({
 
   getOne: publicProcedure.input(idSchema).query(async ({ input, ctx }) => {
     return await ctx.db.user.findUnique({
-      where: idSchema.parse(input),
+      where: idSchema.parse({ id: input.id }),
     });
   }),
 
@@ -59,7 +59,7 @@ export const userRoute = createTRPCRouter({
     .input(idSchema)
     .mutation(async ({ input, ctx }) => {
       return await ctx.db.user.delete({
-        where: idSchema.parse(input),
+        where: idSchema.parse({ id: input.id }),
       });
     }),
 });

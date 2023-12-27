@@ -1,5 +1,3 @@
-// export { default } from "next-auth/middleware";
-
 import { NextResponse, NextRequest } from "next/server";
 
 export function middleware(request: NextRequest, response: NextResponse) {

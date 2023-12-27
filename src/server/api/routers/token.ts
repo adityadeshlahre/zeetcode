@@ -22,7 +22,7 @@ export const tokenRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       return await ctx.db.admin.update({
         where: adminSchema.parse({ id: input.id }),
-        data: adminSchema.parse(input.token),
+        data: adminSchema.parse({ token: input.token }),
       });
     }),
 
@@ -48,7 +48,7 @@ export const tokenRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       return await ctx.db.user.update({
         where: { id: input.id },
-        data: userSchema.parse(input.token),
+        data: userSchema.parse({ token: input.token }),
       });
     }),
 

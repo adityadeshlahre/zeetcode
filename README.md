@@ -18,7 +18,6 @@
 - [x] zod infered types to frontEnd
 - [ ] Judge0 [as code eval]
 - [ ] Monaco Code Editior
-- [ ] NextAuth [middleware setup left]
 - [ ] Adding more....
 
 ## Create T3 App

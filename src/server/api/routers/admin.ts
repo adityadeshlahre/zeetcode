@@ -13,7 +13,7 @@ export const adminRoute = createTRPCRouter({
 
   getOneAdmin: publicProcedure.input(idSchema).query(async ({ input, ctx }) => {
     return await ctx.db.admin.findUnique({
-      where: idSchema.parse(input),
+      where: idSchema.parse({ id: input.id }),
     });
   }),
 
@@ -60,7 +60,7 @@ export const adminRoute = createTRPCRouter({
     .input(idSchema)
     .mutation(async ({ input, ctx }) => {
       return await ctx.db.admin.delete({
-        where: idSchema.parse(input),
+        where: idSchema.parse({ id: input.id }),
       });
     }),
 });

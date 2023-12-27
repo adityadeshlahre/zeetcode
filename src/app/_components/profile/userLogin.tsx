@@ -22,10 +22,7 @@ export default function UserLogin() {
     { email: email, password: password },
     {
       onSuccess: async () => {
-        const isVerified = await VerifyToken(
-          token.data?.token as string,
-          email,
-        );
+        const isVerified = await VerifyToken(token.data?.token as string);
         if (!isVerified) {
           return console.error("User token is INVALID");
         }

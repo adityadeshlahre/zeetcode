@@ -1,10 +1,16 @@
-import { createHash } from "crypto";
+import { sign, verify, Secret } from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
+// const SECRET = process.env.JWT_SECRET as Secret;
+const SECRET = "tokEN";
+//token from .env fix needed
 
 export const GenerateToken = async (email: string): Promise<string> => {
   try {
-    const hash = createHash("sha256");
-    const token = hash.update(email).digest("hex");
-
+    console.log(SECRET);
+    const token: string = sign({ email: email }, SECRET, {
+      expiresIn: "7d",
+    });
     return token;
   } catch (error) {
     console.error("Error generating token:", error);
@@ -12,14 +18,10 @@ export const GenerateToken = async (email: string): Promise<string> => {
   }
 };
 
-export const VerifyToken = async (
-  token: string,
-  email: string,
-): Promise<boolean> => {
+export const VerifyToken = async (token: string): Promise<boolean> => {
   try {
-    const hashedEmail = await GenerateToken(email);
-
-    return token === hashedEmail;
+    const decoded = verify(token, SECRET);
+    return !!decoded && typeof decoded === "object" && "email" in decoded;
   } catch (error) {
     console.error("Error verifying token:", error);
     return false;
