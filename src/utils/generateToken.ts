@@ -1,13 +1,12 @@
-import { sign, verify, Secret } from "jsonwebtoken";
+import { sign, verify } from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 // const SECRET = process.env.JWT_SECRET as Secret;
-const SECRET = "tokEN";
+const SECRET = process.env.JWT_SECRET || "tokEN";
 //token from .env fix needed
 
 export const GenerateToken = async (email: string): Promise<string> => {
   try {
-    console.log(SECRET);
     const token: string = sign({ email: email }, SECRET, {
       expiresIn: "7d",
     });
