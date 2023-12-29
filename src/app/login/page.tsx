@@ -1,3 +1,4 @@
+"use client";
 import { api } from "~/trpc/server";
 import UserRegister from "../_components/profile/createUser";
 import UserLogin from "../_components/profile/userLogin";

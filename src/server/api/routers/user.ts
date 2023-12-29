@@ -3,6 +3,7 @@ import {
   idSchema,
   userLoginSchema,
   userSchema,
+  userTokenGetSchema,
   userTokenSchema,
 } from "../types";
 
@@ -22,6 +23,14 @@ export const userRoute = createTRPCRouter({
     .query(async ({ input, ctx }) => {
       return await ctx.db.user.findUnique({
         where: userTokenSchema.parse({ email: input.email }),
+      });
+    }),
+
+  getTokenOne: publicProcedure
+    .input(userTokenGetSchema.pick({ token: true }))
+    .query(async ({ input, ctx }) => {
+      return await ctx.db.user.findFirst({
+        where: userTokenGetSchema.parse({ token: input.token }),
       });
     }),
 

@@ -4,6 +4,7 @@ import {
   adminSchema,
   adminLoginSchema,
   adminTokenSchema,
+  adminTokenGetSchema,
 } from "../types";
 
 export const adminRoute = createTRPCRouter({
@@ -22,6 +23,14 @@ export const adminRoute = createTRPCRouter({
     .query(async ({ input, ctx }) => {
       return await ctx.db.admin.findUnique({
         where: adminTokenSchema.parse({ email: input.email }),
+      });
+    }),
+
+  getTokenOne: publicProcedure
+    .input(adminTokenGetSchema.pick({ token: true }))
+    .query(async ({ input, ctx }) => {
+      return await ctx.db.user.findFirst({
+        where: adminTokenGetSchema.parse({ token: input.token }),
       });
     }),
 

@@ -8,7 +8,6 @@ import { TAdminSchema, TUserSchema, idSchema } from "../api/types";
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
-// Consider using more descriptive names for these constants
 export let isLoggedIn: boolean = false;
 export let isAdmin: boolean = false;
 export let isValidToken: boolean = false;
@@ -34,10 +33,10 @@ export async function DeleteAdminToken(id: string) {
   return deleteTokenDb;
 }
 
-export async function GetUserToken(email: string): Promise<string | unknown> {
+export async function GetUserToken(email: string): Promise<string> {
   const getTokenDb = await api.token.getUserToken.query({ email });
   console.log(getTokenDb);
-  return getTokenDb?.token;
+  return getTokenDb?.token as string;
 }
 
 export async function SetUserToken(id: string, token: string) {

@@ -1,9 +1,27 @@
 "use client";
+import { useState, useEffect } from "react";
 import { api } from "~/trpc/react";
 
 export default function UserProfile() {
-  const email: string = "useruser@user.user";
-  const userProfile = api.user.getIdOne.useQuery({ email: email });
+  const [token, setToken] = useState<string>("");
+  //this function is showing as not defined [^]
+  const email = api.user.getTokenOne.useQuery(
+    { token: token },
+    { enabled: true },
+  );
+  const userProfile = api.user.getIdOne.useQuery(
+    {
+      email: email.data?.email as string,
+    },
+    { enabled: true },
+  );
+  useEffect(() => {
+    const token = localStorage.getItem("token") as string;
+    setToken(token);
+  });
+  //implement if user is logged in then only should run
+  //should store these things as cache
+  //remove un nasisarry calles
 
   if (userProfile.error) {
     return <div>Error loading user profile</div>;

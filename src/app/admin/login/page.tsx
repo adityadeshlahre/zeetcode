@@ -1,3 +1,4 @@
+"use client";
 import AdminLogin from "~/app/_components/profile/adminLogin";
 
 export default function Siginup() {

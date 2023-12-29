@@ -26,6 +26,9 @@ export default function UserLogin() {
         if (!isVerified) {
           return console.error("User token is INVALID");
         }
+        if (!localStorage.getItem("token")) {
+          localStorage.setItem("token", token.data?.token as string);
+        }
         router.push("/");
       },
       onError: (error: any) => {
@@ -40,7 +43,7 @@ export default function UserLogin() {
     },
   );
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const HandleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const hashedpassword: string = await GetUserPass(email);
@@ -63,7 +66,7 @@ export default function UserLogin() {
   return (
     <div className="mx-auto mt-20 max-w-md rounded-md bg-white p-6 shadow-md">
       <h1 className="mb-4 text-2xl font-semibold">User Login</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={HandleSubmit}>
         <label className="mb-4 block">
           <span>Email:</span>
           <input

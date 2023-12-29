@@ -1,3 +1,4 @@
+"use client";
 import { NextRequest } from "next/server";
 import AdminProfile from "~/app/_components/profile/adminProfile";
 

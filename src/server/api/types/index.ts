@@ -3,6 +3,8 @@ import { z } from "zod";
 export const idSchema = z.object({ id: z.string() });
 export const userTokenSchema = z.object({ email: z.string().email() });
 export const adminTokenSchema = z.object({ email: z.string().email() });
+export const userTokenGetSchema = z.object({ token: z.string() });
+export const adminTokenGetSchema = z.object({ token: z.string() });
 
 export const adminLoginSchema = z.object({
   email: z.string().email(),

@@ -16,6 +16,7 @@
 - [ ] ProcedureCalls
 - [ ] Pages Router
 - [x] zod infered types to frontEnd
+- [ ] Remove email dependency
 - [ ] Judge0 [as code eval]
 - [ ] Monaco Code Editior
 - [ ] Adding more....
