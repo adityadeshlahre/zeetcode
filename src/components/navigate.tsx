@@ -12,6 +12,10 @@ const siteRoutes = [
     href: "/profile",
     label: "Profile",
   },
+  {
+    href: "/logout",
+    label: "Logout",
+  },
 ];
 
 export default function SiteNav() {

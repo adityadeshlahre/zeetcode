@@ -20,13 +20,14 @@ export function AllChallenge() {
   return (
     <>
       <ul>
-        {challenges.map((challenge) => (
+        {challenges.map((challenge, index) => (
           <li key={challenge.id}>
             {challenge.questionTitle}
             <br />
             {challenge.questionDescription}
             <br />
             {challenge.questionHint}
+            {index < challenges.length - 1 && <hr />}
           </li>
         ))}
       </ul>

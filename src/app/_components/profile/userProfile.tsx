@@ -1,9 +1,19 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { api } from "~/trpc/react";
 
 export default function UserProfile() {
+  const router = useRouter();
   const [token, setToken] = useState<string>("");
+  useEffect(() => {
+    const token = localStorage.getItem("token") as string;
+    if (!token) {
+      console.error("User Token is not there please login");
+      router.push("/login");
+    }
+    setToken(token);
+  });
   //this function is showing as not defined [^]
   const email = api.user.getTokenOne.useQuery(
     { token: token },
@@ -15,10 +25,6 @@ export default function UserProfile() {
     },
     { enabled: true },
   );
-  useEffect(() => {
-    const token = localStorage.getItem("token") as string;
-    setToken(token);
-  });
   //implement if user is logged in then only should run
   //should store these things as cache
   //remove un nasisarry calles

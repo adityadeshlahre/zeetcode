@@ -1,13 +1,32 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "~/trpc/react";
 import { TChallengeSchema } from "~/server/api/types";
 import { IsAdmin } from "~/server/token";
 
 export function CreateChallenge() {
   const router = useRouter();
+  const [id, setId] = useState<string>("");
+  useEffect(() => {
+    const storedId = localStorage.getItem("id");
+    if (storedId) {
+      setId(storedId);
+    }
+  });
+  const email = api.admin.getOneAdmin.useQuery(
+    { id: id as string },
+    { enabled: false },
+  );
+  useEffect(() => {
+    if (!email) {
+      console.error("LoggedIn user is not an Admin");
+      router.replace("/admin/register");
+    }
+    1;
+  }, [email, router]);
+
   const [code, setCode] = useState<TChallengeSchema["code"]>("");
   const [questionTitle, setQuestionTitle] =
     useState<TChallengeSchema["questionTitle"]>("");
@@ -16,9 +35,6 @@ export function CreateChallenge() {
   const [questionHint, setQuestionHint] =
     useState<TChallengeSchema["questionHint"]>("");
   const [solution, setSolution] = useState<TChallengeSchema["solution"]>("");
-  if (!IsAdmin) {
-    console.error("LoggedIn user is not an Admin");
-  }
 
   const createChallenge = api.challenge.createChallenge.useMutation({
     onSuccess: () => {
@@ -41,7 +57,7 @@ export function CreateChallenge() {
           questionDescription,
           questionHint,
           solution,
-          adminId: "440dd03d-298e-4551-85b9-a3b1f9c16336",
+          adminId: id,
         });
       }}
       className="flex flex-col gap-4"

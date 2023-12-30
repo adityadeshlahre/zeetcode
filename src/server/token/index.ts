@@ -21,7 +21,7 @@ export async function GetAdminToken(email: string): Promise<string | unknown> {
 
 export async function SetAdminToken(id: string, token: string) {
   const setTokenDb = await api.token.updateAdminToken.mutate({ id, token });
-  localStorage.setItem("token", setTokenDb.token);
+  // localStorage.setItem("token", setTokenDb.token);
   console.log(setTokenDb);
   return setTokenDb;
 }
@@ -29,7 +29,7 @@ export async function SetAdminToken(id: string, token: string) {
 export async function DeleteAdminToken(id: string) {
   const deleteTokenDb = await api.token.deleteAdminToken.mutate({ id });
   console.log(deleteTokenDb);
-  localStorage.clear();
+  // localStorage.clear();
   return deleteTokenDb;
 }
 
@@ -41,22 +41,22 @@ export async function GetUserToken(email: string): Promise<string> {
 
 export async function SetUserToken(id: string, token: string) {
   const setTokenDb = await api.token.updateUserToken.mutate({ id, token });
-  localStorage.setItem("token", setTokenDb.token);
+  // localStorage.setItem("token", setTokenDb.token);
   console.log(setTokenDb);
   return setTokenDb;
 }
 
 export async function DeleteUserToken(id: string) {
   const deleteTokenDb = await api.token.deleteUserToken.mutate({ id });
-  localStorage.clear();
+  // localStorage.clear();
   return deleteTokenDb;
 }
 
-export async function CompareToken(email: string): Promise<boolean> {
-  const token = await GetUserToken(email);
-  isValidToken = token === localStorage.getItem("token");
-  return isValidToken;
-}
+// export async function CompareToken(email: string): Promise<boolean> {
+//   const token = await GetUserToken(email);
+//   isValidToken = token === localStorage.getItem("token");
+//   return isValidToken;
+// }
 
 export async function IsAdmin(email: string): Promise<boolean> {
   const token = await GetUserToken(email);
@@ -95,6 +95,6 @@ export async function IsTokenExpiredCheck(email: string): Promise<boolean> {
   }
 }
 
-export async function ClearToken() {
-  localStorage.clear();
-}
+// export async function ClearToken() {
+//   localStorage.clear();
+// }

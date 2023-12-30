@@ -27,6 +27,10 @@ export default function AdminLogin() {
         if (!isVerified) {
           return console.error("Admin token is INVALID");
         }
+        if (!localStorage.getItem("token") || !localStorage.getItem("id")) {
+          localStorage.setItem("token", token.data?.token as string);
+          localStorage.setItem("id", token.data?.id as string);
+        }
         router.push("/");
       },
       onError: (error: any) => {

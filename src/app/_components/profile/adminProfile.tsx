@@ -1,10 +1,32 @@
 "use client";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 //testing routes [frontEnd]
 import { api } from "~/trpc/react";
 
 export default function AdminProfile() {
-  const email: string = "useruser@user.user";
-  const adminProfile = api.admin.getIdAdmin.useQuery({ email: email });
+  const router = useRouter();
+  const [token, setToken] = useState<string>("");
+  useEffect(() => {
+    const token = localStorage.getItem("token") as string;
+    if (!token) {
+      console.error("Admin Token is not there please login");
+      router.push("/admin/login");
+    }
+    setToken(token);
+  });
+  const email = api.admin.getTokenOne.useQuery(
+    { token: token },
+    { enabled: true },
+  );
+  const adminProfile = api.admin.getIdAdmin.useQuery(
+    {
+      email: email.data?.email as string,
+    },
+    {
+      enabled: true,
+    },
+  );
 
   if (adminProfile.error) {
     return <div>Error loading user profile</div>;

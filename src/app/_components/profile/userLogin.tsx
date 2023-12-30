@@ -26,8 +26,9 @@ export default function UserLogin() {
         if (!isVerified) {
           return console.error("User token is INVALID");
         }
-        if (!localStorage.getItem("token")) {
+        if (!localStorage.getItem("token") || !localStorage.getItem("id")) {
           localStorage.setItem("token", token.data?.token as string);
+          localStorage.setItem("id", token.data?.id as string);
         }
         router.push("/");
       },
