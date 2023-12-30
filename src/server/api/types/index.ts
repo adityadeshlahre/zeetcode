@@ -6,6 +6,11 @@ export const adminTokenSchema = z.object({ email: z.string().email() });
 export const userTokenGetSchema = z.object({ token: z.string() });
 export const adminTokenGetSchema = z.object({ token: z.string() });
 
+enum Role {
+  User,
+  Admin,
+}
+
 export const adminLoginSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
@@ -14,9 +19,10 @@ export const adminLoginSchema = z.object({
 export const adminSchema = z.object({
   username: z.string().min(1).max(10),
   name: z.string(),
-  image: z.string(),
+  image: z.string().optional(),
   email: z.string().email(),
   password: z.string().min(6),
+  role: z.nativeEnum(Role).default(Role.Admin),
   token: z.string(),
 });
 
@@ -28,9 +34,10 @@ export const userLoginSchema = z.object({
 export const userSchema = z.object({
   username: z.string().min(1).max(10),
   name: z.string(),
-  image: z.string(),
+  image: z.string().optional(),
   email: z.string().email(),
   password: z.string().min(6),
+  role: z.nativeEnum(Role).default(Role.User),
   token: z.string(),
 });
 

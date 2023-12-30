@@ -8,10 +8,10 @@ import { TAdminSchema, TUserSchema, idSchema } from "../api/types";
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
-export let isLoggedIn: boolean = false;
-export let isAdmin: boolean = false;
-export let isValidToken: boolean = false;
-export let isTokenExpired: boolean = true;
+let isLoggedIn: boolean = false;
+let isAdmin: boolean = false;
+let isValidToken: boolean = false;
+let isTokenExpired: boolean = true;
 
 export async function GetAdminToken(email: string): Promise<string | unknown> {
   const getTokenDb = await api.token.getAdminToken.query({ email });
@@ -74,7 +74,7 @@ export async function IsLoggedIn(email: string): Promise<boolean> {
   return isLoggedIn;
 }
 
-export async function IsTokenExpired(email: string): Promise<boolean> {
+export async function IsTokenExpiredCheck(email: string): Promise<boolean> {
   // const token = await GetUserToken(email);
   const id = (await GetUserId(email)) as unknown as string;
   try {

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { api } from "~/trpc/react";
 import { TChallengeSchema } from "~/server/api/types";
+import { IsAdmin } from "~/server/token";
 
 export function CreateChallenge() {
   const router = useRouter();
@@ -15,6 +16,9 @@ export function CreateChallenge() {
   const [questionHint, setQuestionHint] =
     useState<TChallengeSchema["questionHint"]>("");
   const [solution, setSolution] = useState<TChallengeSchema["solution"]>("");
+  if (!IsAdmin) {
+    console.error("LoggedIn user is not an Admin");
+  }
 
   const createChallenge = api.challenge.createChallenge.useMutation({
     onSuccess: () => {

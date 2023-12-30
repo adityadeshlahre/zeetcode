@@ -9,11 +9,11 @@ import {
 
 export const adminRoute = createTRPCRouter({
   getAllAdmins: publicProcedure.query(async ({ ctx }) => {
-    return await ctx.db.admin.findMany();
+    return await ctx.db.user.findMany();
   }),
 
   getOneAdmin: publicProcedure.input(idSchema).query(async ({ input, ctx }) => {
-    return await ctx.db.admin.findUnique({
+    return await ctx.db.user.findUnique({
       where: idSchema.parse({ id: input.id }),
     });
   }),
@@ -21,7 +21,7 @@ export const adminRoute = createTRPCRouter({
   getIdAdmin: publicProcedure
     .input(adminTokenSchema.pick({ email: true }))
     .query(async ({ input, ctx }) => {
-      return await ctx.db.admin.findUnique({
+      return await ctx.db.user.findUnique({
         where: adminTokenSchema.parse({ email: input.email }),
       });
     }),
@@ -37,7 +37,7 @@ export const adminRoute = createTRPCRouter({
   loginAdmin: publicProcedure
     .input(adminLoginSchema)
     .query(async ({ input, ctx }) => {
-      return await ctx.db.admin.findUnique({
+      return await ctx.db.user.findUnique({
         where: adminLoginSchema.parse({
           email: input.email,
           password: input.password,
@@ -48,7 +48,7 @@ export const adminRoute = createTRPCRouter({
   createAdmin: publicProcedure
     .input(adminSchema)
     .mutation(async ({ input, ctx }) => {
-      return await ctx.db.admin.create({
+      return await ctx.db.user.create({
         data: adminSchema.parse(input),
       });
     }),
@@ -57,7 +57,7 @@ export const adminRoute = createTRPCRouter({
     .input(adminSchema)
     .input(idSchema)
     .mutation(async ({ input, ctx }) => {
-      return await ctx.db.admin.update({
+      return await ctx.db.user.update({
         where: {
           id: input.id,
         },
@@ -68,7 +68,7 @@ export const adminRoute = createTRPCRouter({
   deleteAdmin: publicProcedure
     .input(idSchema)
     .mutation(async ({ input, ctx }) => {
-      return await ctx.db.admin.delete({
+      return await ctx.db.user.delete({
         where: idSchema.parse({ id: input.id }),
       });
     }),
