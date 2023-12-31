@@ -17,14 +17,14 @@ export default function AdminProfile() {
   });
   const email = api.admin.getTokenOne.useQuery(
     { token: token },
-    { enabled: true },
+    { enabled: !!token },
   );
   const adminProfile = api.admin.getIdAdmin.useQuery(
     {
       email: email.data?.email as string,
     },
     {
-      enabled: true,
+      enabled: !!email.data?.email,
     },
   );
 

@@ -16,6 +16,22 @@ const siteRoutes = [
     href: "/logout",
     label: "Logout",
   },
+  {
+    href: "/register",
+    label: "User",
+  },
+  {
+    href: "/admin/register",
+    label: "Admin",
+  },
+  {
+    href: "/login",
+    label: "UserLogin",
+  },
+  {
+    href: "/admin/login",
+    label: "AdminLogin",
+  },
 ];
 
 export default function SiteNav() {

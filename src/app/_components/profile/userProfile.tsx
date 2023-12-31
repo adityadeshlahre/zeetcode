@@ -17,13 +17,13 @@ export default function UserProfile() {
   //this function is showing as not defined [^]
   const email = api.user.getTokenOne.useQuery(
     { token: token },
-    { enabled: true },
+    { enabled: !!token },
   );
   const userProfile = api.user.getIdOne.useQuery(
     {
       email: email.data?.email as string,
     },
-    { enabled: true },
+    { enabled: !!email.data?.email },
   );
   //implement if user is logged in then only should run
   //should store these things as cache

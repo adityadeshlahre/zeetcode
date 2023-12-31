@@ -10,22 +10,13 @@ export function CreateChallenge() {
   const router = useRouter();
   const [id, setId] = useState<string>("");
   useEffect(() => {
-    const storedId = localStorage.getItem("id");
-    if (storedId) {
-      setId(storedId);
+    const storedId = localStorage.getItem("id") as string;
+    if (!storedId) {
+      console.error("Login as admin !....");
+      router.push("/admin/login");
     }
-  });
-  const email = api.admin.getOneAdmin.useQuery(
-    { id: id as string },
-    { enabled: false },
-  );
-  useEffect(() => {
-    if (!email) {
-      console.error("LoggedIn user is not an Admin");
-      router.replace("/admin/register");
-    }
-    1;
-  }, [email, router]);
+    setId(storedId);
+  }, [router]);
 
   const [code, setCode] = useState<TChallengeSchema["code"]>("");
   const [questionTitle, setQuestionTitle] =
@@ -46,6 +37,18 @@ export function CreateChallenge() {
       setSolution("");
     },
   });
+
+  const email = api.admin.getOneAdmin.useQuery(
+    { id: id as string },
+    { enabled: !!id },
+  );
+
+  useEffect(() => {
+    if (!email.data?.email) {
+      console.error("LoggedIn user is not an Admin");
+      router.replace("/admin/register");
+    }
+  }, [email, router]);
 
   return (
     <form
