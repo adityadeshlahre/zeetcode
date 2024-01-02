@@ -14,7 +14,7 @@ export default function Home() {
             >
               ZeetCod3
               <br />
-              <span className="bg-gradient-to-r from-gray-500 to-gray-800 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-sky-500 to-sky-900 bg-clip-text text-transparent">
                 A Symmetry 0F LeetCode
               </span>
             </h1>

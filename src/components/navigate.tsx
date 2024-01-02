@@ -18,11 +18,11 @@ const siteRoutes = [
   },
   {
     href: "/register",
-    label: "User",
+    label: "UserRegister",
   },
   {
     href: "/admin/register",
-    label: "Admin",
+    label: "AdminRegister",
   },
   {
     href: "/login",
@@ -32,6 +32,10 @@ const siteRoutes = [
     href: "/admin/login",
     label: "AdminLogin",
   },
+  {
+    href: "/challenges",
+    label: "AllChallenges",
+  },
 ];
 
 export default function SiteNav() {
@@ -39,7 +43,7 @@ export default function SiteNav() {
 
   return (
     <nav>
-      <ul className="flex gap-x-5 text-[14px]">
+      <ul className="flex gap-x-5 text-[16px]">
         {siteRoutes.map((siteRoute) => (
           <li key={siteRoute.href}>
             <Link
