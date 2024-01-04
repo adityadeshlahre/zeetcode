@@ -15,7 +15,7 @@ export default function Footer() {
           className="mx-2"
         >
           <svg
-            className="h-6 w-6"
+            className="h-10 w-10"
             xmlns="http://www.w3.org/2000/svg"
             viewBox={IconPaths.twitter.viewBox}
           >
@@ -31,7 +31,7 @@ export default function Footer() {
           className="mx-2"
         >
           <svg
-            className="h-6 w-6"
+            className="h-10 w-10"
             xmlns="http://www.w3.org/2000/svg"
             viewBox={IconPaths.github.viewBox}
           >
@@ -47,7 +47,7 @@ export default function Footer() {
           className="mx-2"
         >
           <svg
-            className="h-6 w-6"
+            className="h-10 w-10"
             xmlns="http://www.w3.org/2000/svg"
             viewBox={IconPaths.linkedin.viewBox}
           >
@@ -63,7 +63,7 @@ export default function Footer() {
           className="mx-2"
         >
           <svg
-            className="h-6 w-6"
+            className="h-10 w-10"
             xmlns="http://www.w3.org/2000/svg"
             viewBox={IconPaths.discord.viewBox}
           >

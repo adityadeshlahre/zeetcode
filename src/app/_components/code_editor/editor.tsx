@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Editor from "@monaco-editor/react";
 
 export default function CodeEditorComponent() {
-  const [code, setCode] = useState("// some comment");
+  const [code, setCode] = useState("// Start writing code here !");
 
   function handleEditorChange(value: any, event: any) {
     console.log("here is the current model value:", value);

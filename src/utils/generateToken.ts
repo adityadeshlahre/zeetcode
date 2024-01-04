@@ -7,9 +7,7 @@ const SECRET = process.env.JWT_SECRET || "tokEN";
 
 export const GenerateToken = async (email: string): Promise<string> => {
   try {
-    const token: string = sign({ email: email }, SECRET, {
-      expiresIn: "7d",
-    });
+    const token: string = sign({ email: email }, SECRET);
     return token;
   } catch (error) {
     console.error("Error generating token:", error);

@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import Header from "../components/header";
 import { TRPCReactProvider } from "~/trpc/react";
 import Container from "~/components/container";
-import Footer from "~/components/fotter";
+import Footer from "~/components/footer";
 
 const inter = Inter({
   subsets: ["latin"],
