@@ -17,9 +17,10 @@
 - [ ] Pages Router
 - [x] zod infered types to frontEnd
 - [ ] Remove email dependency
-- [ ] Remove Token dependenct localStorage
+- [ ] Remove Token dependency localStorage
 - [ ] Judge0 [as code eval]
-- [ ] Monaco Code Editior
+- [x] Monaco Code Editior
+- [ ] DiceBear Avatars
 - [ ] Adding more....
 
 ## Create T3 App

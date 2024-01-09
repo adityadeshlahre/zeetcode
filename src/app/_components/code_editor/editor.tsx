@@ -17,11 +17,21 @@ export default function CodeEditorComponent() {
     <>
       <Editor
         height="50vh"
-        width="90vw"
+        width="80vw"
         defaultLanguage="javascript"
         theme="vs-dark"
         defaultValue={code}
         onChange={handleEditorChange}
+        options={{
+          minimap: {
+            enabled: false,
+          },
+          wordWrap: "off",
+          wordWrapBreakAfterCharacters: "\t})]?|&,;",
+          wordWrapBreakBeforeCharacters: "{([+",
+          wordWrapColumn: 80,
+          wrappingIndent: "none",
+        }}
       />
       <button onClick={handleSubmit}>Submit</button>
       <div>
